@@ -46,7 +46,7 @@ jobs:
     if: startsWith(github.event.pull_request.head.ref, 'release/')
     steps:
       - name: Pull Request Body
-        uses: technote-space/get-git-comment-action@v1
+        uses: technote-space/pr-commit-body-action@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
