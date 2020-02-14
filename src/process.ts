@@ -2,7 +2,7 @@ import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
 import { Logger } from '@technote-space/github-action-helper';
 import { getCommitItems } from './utils/commit';
-import { getBodyTemplate, getCommitTemplate, getMergeTemplate, replaceVariables, transform } from './utils/misc';
+import { getBodyTemplate, getCommitTemplate, getMergeTemplate, replaceVariables, transform, addCloseAnnotation } from './utils/misc';
 import { getMergedPulls } from './utils/pulls';
 
 export const execute = async(logger: Logger, octokit: Octokit, context: Context): Promise<boolean> => {
@@ -11,8 +11,9 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 		return false;
 	}
 
-	const pulls   = await getMergedPulls(octokit, context);
-	const commits = await getCommitItems(octokit, context);
+	const pulls      = await getMergedPulls(octokit, context);
+	const commits    = await getCommitItems(octokit, context);
+	const pullTitles = pulls.map(item => item.title);
 
 	logger.startProcess('Pull Requests');
 	console.log(pulls);
@@ -20,12 +21,12 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 	console.log(commits);
 
 	const pullsTemplate  = pulls.map(pull => replaceVariables(getMergeTemplate(), [
-		{key: 'TITLE', value: pull.title},
+		{key: 'TITLE', value: addCloseAnnotation(pull.title)},
 		{key: 'NUMBER', value: String(pull.number)},
 		{key: 'AUTHOR', value: pull.author},
 	])).join('\n');
-	const commitTemplate = commits.map(commit => replaceVariables(getCommitTemplate(), [
-		{key: 'MESSAGE', value: commit.message},
+	const commitTemplate = commits.filter(commit => !pullTitles.includes(commit.raw)).map(commit => replaceVariables(getCommitTemplate(), [
+		{key: 'MESSAGE', value: addCloseAnnotation(commit.message)},
 		{key: 'COMMITS', value: commit.commits},
 	])).join('\n');
 	const template       = replaceVariables(getBodyTemplate(), [

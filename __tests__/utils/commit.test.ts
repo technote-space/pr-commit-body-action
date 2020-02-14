@@ -53,12 +53,12 @@ describe('getCommitItems', () => {
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'));
 
 		expect(await getCommitItems(octokit, context)).toEqual([
-			{message: 'feat: add new feature1 (closes #123, closes #234)', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e'},
-			{message: 'feat: add new feature2', commits: '4dcb09b5b57875f334f61aebed695e2e4193db5e'},
-			{message: 'fix: Fix all the bugs', commits: '1dcb09b5b57875f334f61aebed695e2e4193db5e'},
-			{message: 'style: tweaks', commits: '7dcb09b5b57875f334f61aebed695e2e4193db5e'},
-			{message: 'refactor: refactoring', commits: '8dcb09b5b57875f334f61aebed695e2e4193db5e'},
-			{message: 'chore: tweaks', commits: '2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...'},
+			{message: 'feat: add new feature1 (#123, #234)', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat: add new feature1 (#123, #234)'},
+			{message: 'feat: add new feature2', commits: '4dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat :  add new feature2'},
+			{message: 'fix: Fix all the bugs', commits: '1dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'fix: Fix all the bugs'},
+			{message: 'style: tweaks', commits: '7dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'style: tweaks'},
+			{message: 'refactor: refactoring', commits: '8dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'refactor: refactoring'},
+			{message: 'chore: tweaks', commits: '2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...', 'raw': 'chore: tweaks'},
 		]);
 	});
 });

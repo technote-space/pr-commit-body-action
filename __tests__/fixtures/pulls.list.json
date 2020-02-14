@@ -502,7 +502,7 @@
     "number": 1348,
     "state": "closed",
     "locked": true,
-    "title": "Amazing new feature",
+    "title": "feat: add new feature1 (#123, #234)",
     "user": {
       "login": "octocat",
       "id": 1,

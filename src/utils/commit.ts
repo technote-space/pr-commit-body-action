@@ -1,6 +1,6 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
-import { getCommitTypes, getMaxCommitNumber, getExcludeMessages, addCloseAnnotation } from './misc';
+import { getCommitTypes, getMaxCommitNumber, getExcludeMessages } from './misc';
 import { CommitInfo, CommitItemInfo } from '../types';
 
 const MERGE_MESSAGE = /^Merge pull request #\d+ /;
@@ -8,7 +8,7 @@ const MERGE_MESSAGE = /^Merge pull request #\d+ /;
 // @see https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716#semantic-commit-messages
 const SEMANTIC_MESSAGE = /^(.+?)\s*(\(.+?\)\s*)?:\s*(.+?)$/;
 
-const parseCommitMessage = (message: string, types: Array<string>, exclude: Array<string>): { type?: string; message?: string } => {
+const parseCommitMessage = (message: string, types: Array<string>, exclude: Array<string>): { type?: string; message?: string; raw?: string } => {
 	const target  = message.trim().replace(/\r?\n|\r/g, ' ');
 	const matches = target.match(SEMANTIC_MESSAGE);
 	if (!matches || !types.includes(matches[1]) || exclude.includes(matches[3].toLowerCase())) {
@@ -17,7 +17,8 @@ const parseCommitMessage = (message: string, types: Array<string>, exclude: Arra
 
 	return {
 		type: matches[1],
-		message: addCloseAnnotation(matches[3]),
+		message: matches[3],
+		raw: message,
 	};
 };
 
@@ -47,10 +48,11 @@ export const getCommitItems = async(octokit: Octokit, context: Context): Promise
 				acc.push({...item, commits: [item.sha]});
 			}
 			return acc;
-		}, [] as Array<{ type: string; message: string; commits: Array<string> }>)
+		}, [] as Array<{ type: string; message: string; commits: Array<string>; raw: string }>)
 		.sort((item1, item2) => types.indexOf(item1.type) - types.indexOf(item2.type))
 		.map(item => ({
 			message: `${item.type}: ${item.message}`,
 			commits: item.commits.slice(0, maxNumber).join(', ') + `${item.commits.length > maxNumber ? ', ...' : ''}`, // eslint-disable-line no-magic-numbers
+			raw: item.raw,
 		}));
 };
