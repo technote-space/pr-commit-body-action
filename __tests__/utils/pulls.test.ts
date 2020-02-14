@@ -31,7 +31,7 @@ describe('getMergedPulls', () => {
 			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'));
 
 		expect(await getMergedPulls(octokit, context)).toEqual([
-			{author: 'octocat', number: 1347, title: 'Amazing new feature'},
+			{author: 'octocat', number: 1347, title: 'Amazing new feature (closes #456)'},
 			{author: 'octocat', number: 1348, title: 'Amazing new feature'},
 		]);
 	});

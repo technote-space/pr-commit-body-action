@@ -15,7 +15,7 @@
     "number": 1347,
     "state": "closed",
     "locked": true,
-    "title": "Amazing new feature",
+    "title": "Amazing new feature (#456)",
     "user": {
       "login": "octocat",
       "id": 1,
