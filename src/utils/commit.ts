@@ -11,7 +11,7 @@ const SEMANTIC_MESSAGE = /^(.+?)\s*(\(.+?\)\s*)?:\s*(.+?)$/;
 const parseCommitMessage = (message: string, types: Array<string>, exclude: Array<string>): { type?: string; message?: string } => {
 	const target  = message.trim().replace(/\r?\n|\r/g, ' ');
 	const matches = target.match(SEMANTIC_MESSAGE);
-	if (!matches || !types.includes(matches[1]) || exclude.includes(matches[3])) {
+	if (!matches || !types.includes(matches[1]) || exclude.includes(matches[3].toLowerCase())) {
 		return {};
 	}
 
