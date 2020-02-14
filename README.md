@@ -32,25 +32,31 @@ This is a `GitHub Actions` to add commit history to PR body.
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Usage
-e.g.
-```yaml
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-name: Pull Request updated
-
-jobs:
-  history:
-    name: Pull Request Body
-    runs-on: ubuntu-latest
-    if: startsWith(github.event.pull_request.head.ref, 'release/')
-    steps:
-      - name: Pull Request Body
-        uses: technote-space/pr-commit-body-action@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
+1. Setup workflow  
+    e.g.
+    ```yaml
+    on:
+      pull_request:
+        types: [opened, synchronize]
+    
+    name: Pull Request updated
+    
+    jobs:
+      history:
+        name: Pull Request Body
+        runs-on: ubuntu-latest
+        if: startsWith(github.event.pull_request.head.ref, 'release/')
+        steps:
+          - name: Pull Request Body
+            uses: technote-space/pr-commit-body-action@v1
+            with:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    ```
+1. Create pull request including comment below
+    ```markdown
+    <!-- START pr-commits -->
+    <!-- END pr-commits -->
+    ```
 
 ## Options
 ### CHANGE_TEMPLATE

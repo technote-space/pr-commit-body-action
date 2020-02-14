@@ -32,25 +32,31 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 使用方法
-例：
-```yaml
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-name: Pull Request updated
-
-jobs:
-  history:
-    name: Pull Request Body
-    runs-on: ubuntu-latest
-    if: startsWith(github.event.pull_request.head.ref, 'release/')
-    steps:
-      - name: Pull Request Body
-        uses: technote-space/pr-commit-body-action@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
+1. ワークフローを設定  
+    例：
+    ```yaml
+    on:
+      pull_request:
+        types: [opened, synchronize]
+    
+    name: Pull Request updated
+    
+    jobs:
+      history:
+        name: Pull Request Body
+        runs-on: ubuntu-latest
+        if: startsWith(github.event.pull_request.head.ref, 'release/')
+        steps:
+          - name: Pull Request Body
+            uses: technote-space/pr-commit-body-action@v1
+            with:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    ```
+1. 以下のコメントを含むプルリクエストを作成
+    ```markdown
+    <!-- START pr-commits -->
+    <!-- END pr-commits -->
+    ```
 
 ## Options
 ### CHANGE_TEMPLATE
