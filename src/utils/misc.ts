@@ -10,6 +10,7 @@ export const getCommitTemplate  = (): string => getInput('COMMIT_TEMPLATE', {req
 export const getMaxCommitNumber = (): number => /^\d+$/.test(getInput('MAX_COMMITS')) ? Number(getInput('MAX_COMMITS')) : 5; // eslint-disable-line no-magic-numbers
 export const getExcludeMessages = (): Array<string> => Utils.getArrayInput('EXCLUDE_MESSAGES').map(item => item.toLowerCase());
 export const replaceVariables   = (string: string, variables: Array<{ key: string; value: string }>): string => variables.reduce((acc, variable) => Utils.replaceAll(acc, `\${${variable.key}}`, variable.value), string);
+export const addCloseAnnotation = (message: string): string => message.replace(/(#\d+)/g, 'closes $1');
 
 const matchesStart     = (line: string): boolean => MATCH_START.test(line);
 const matchesEnd       = (line: string): boolean => MATCH_END.test(line);

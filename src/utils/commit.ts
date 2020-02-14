@@ -1,6 +1,6 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
-import { getCommitTypes, getMaxCommitNumber, getExcludeMessages } from './misc';
+import { getCommitTypes, getMaxCommitNumber, getExcludeMessages, addCloseAnnotation } from './misc';
 import { CommitInfo, CommitItemInfo } from '../types';
 
 const MERGE_MESSAGE = /^Merge pull request #\d+ /;
@@ -17,7 +17,7 @@ const parseCommitMessage = (message: string, types: Array<string>, exclude: Arra
 
 	return {
 		type: matches[1],
-		message: matches[3],
+		message: addCloseAnnotation(matches[3]),
 	};
 };
 
