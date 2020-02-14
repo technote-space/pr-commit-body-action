@@ -16,9 +16,15 @@ This is a `GitHub Actions` to add commit history to PR body.
 <details>
 <summary>Details</summary>
 
-- [Setup](#setup)
-  - [yarn](#yarn)
-  - [npm](#npm)
+- [Usage](#usage)
+- [Options](#options)
+  - [CHANGE_TEMPLATE](#change_template)
+  - [COMMIT_TEMPLATE](#commit_template)
+  - [MAX_COMMITS](#max_commits)
+  - [TEMPLATE](#template)
+  - [COMMIT_TYPES](#commit_types)
+- [Action event details](#action-event-details)
+  - [Target events](#target-events)
 - [Author](#author)
 
 </details>
@@ -40,7 +46,7 @@ jobs:
     if: startsWith(github.event.pull_request.head.ref, 'release/')
     steps:
       - name: Pull Request Body
-        uses: technote-space/get-git-comment-action@v1
+        uses: technote-space/pr-commit-body-action@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
