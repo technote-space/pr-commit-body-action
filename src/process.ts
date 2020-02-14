@@ -29,7 +29,7 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 		{key: 'MESSAGE', value: addCloseAnnotation(commit.message)},
 		{key: 'COMMITS', value: commit.commits},
 	])).join('\n');
-	const template       = replaceVariables(getBodyTemplate(), [
+	const template       = replaceVariables(getBodyTemplate(!(pulls.length + commits.length)), [
 		{key: 'MERGES', value: pullsTemplate},
 		{key: 'COMMITS', value: commitTemplate},
 	]);

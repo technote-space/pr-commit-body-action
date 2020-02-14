@@ -51,11 +51,31 @@ describe('getBodyTemplate', () => {
 
 	it('should get body template', () => {
 		process.env.INPUT_TEMPLATE = '${MERGES}::${COMMITS}';
-		expect(getBodyTemplate()).toBe('${MERGES}::${COMMITS}');
+		expect(getBodyTemplate(false)).toBe('${MERGES}::${COMMITS}');
 	});
 
 	it('should get default body template', () => {
-		expect(getBodyTemplate()).toBe('${MERGES}\n${COMMITS}');
+		expect(getBodyTemplate(false)).toBe('${MERGES}\n${COMMITS}');
+	});
+
+	it('should return empty', () => {
+		expect(getBodyTemplate(true)).toBe('');
+	});
+
+	it('should get no item', () => {
+		process.env.INPUT_NO_ITEMS = '- no item';
+		expect(getBodyTemplate(true)).toBe('- no item');
+	});
+
+	it('should get body template with title', () => {
+		process.env.INPUT_TITLE = '## Changed';
+		expect(getBodyTemplate(false)).toBe('## Changed\n\n${MERGES}\n${COMMITS}');
+	});
+
+	it('should get body template with title, no item', () => {
+		process.env.INPUT_TITLE    = '## Changed';
+		process.env.INPUT_NO_ITEMS = '- no item';
+		expect(getBodyTemplate(true)).toBe('## Changed\n\n- no item');
 	});
 });
 
