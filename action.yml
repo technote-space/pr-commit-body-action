@@ -30,6 +30,9 @@ inputs:
     description: Types
     default: feat, fix, docs, style, refactor, test, chore
     required: true
+  EXCLUDE_MESSAGES:
+    description: Exclude messages
+    required: false
 
 branding:
   icon: 'file-text'

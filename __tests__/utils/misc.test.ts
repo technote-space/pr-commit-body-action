@@ -2,7 +2,7 @@
 import { testEnv } from '@technote-space/github-action-test-helper';
 import { resolve } from 'path';
 import { replaceVariables, transform } from '../../src/utils/misc';
-import { getCommitTypes, getBodyTemplate, getMergeTemplate, getCommitTemplate, getMaxCommitNumber } from '../../src/utils/misc';
+import { getCommitTypes, getBodyTemplate, getMergeTemplate, getCommitTemplate, getMaxCommitNumber, getExcludeMessages } from '../../src/utils/misc';
 
 const rootDir = resolve(__dirname, '../..');
 
@@ -100,5 +100,18 @@ describe('getMaxCommitNumber', () => {
 	it('should get default commit number', () => {
 		process.env.INPUT_MAX_COMMITS = 'abc';
 		expect(getMaxCommitNumber()).toBe(5);
+	});
+});
+
+describe('getExcludeMessages', () => {
+	testEnv(rootDir);
+
+	it('should get exclude messages', () => {
+		process.env.INPUT_EXCLUDE_MESSAGES = 'trigger workflow';
+		expect(getExcludeMessages()).toEqual(['trigger workflow']);
+	});
+
+	it('should return empty', () => {
+		expect(getExcludeMessages()).toEqual([]);
 	});
 });

@@ -45,7 +45,8 @@ describe('getCommitItems', () => {
 	disableNetConnect(nock);
 
 	it('should get commit messages', async() => {
-		process.env.INPUT_MAX_COMMITS = '3';
+		process.env.INPUT_MAX_COMMITS      = '3';
+		process.env.INPUT_EXCLUDE_MESSAGES = 'trigger workflow';
 		nock('https://api.github.com')
 			.persist()
 			.get('/repos/hello/world/pulls/123/commits')

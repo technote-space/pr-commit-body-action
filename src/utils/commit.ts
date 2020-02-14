@@ -1,6 +1,6 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
-import { getCommitTypes, getMaxCommitNumber } from './misc';
+import { getCommitTypes, getMaxCommitNumber, getExcludeMessages } from './misc';
 import { CommitInfo, CommitItemInfo } from '../types';
 
 const MERGE_MESSAGE = /^Merge pull request #\d+ /;
@@ -8,10 +8,10 @@ const MERGE_MESSAGE = /^Merge pull request #\d+ /;
 // @see https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716#semantic-commit-messages
 const SEMANTIC_MESSAGE = /^(.+?)\s*(\(.+?\)\s*)?:\s*(.+?)$/;
 
-const parseCommitMessage = (message: string, types: Array<string>): { type?: string; message?: string } => {
+const parseCommitMessage = (message: string, types: Array<string>, exclude: Array<string>): { type?: string; message?: string } => {
 	const target  = message.trim().replace(/\r?\n|\r/g, ' ');
 	const matches = target.match(SEMANTIC_MESSAGE);
-	if (!matches || !types.includes(matches[1])) {
+	if (!matches || !types.includes(matches[1]) || exclude.includes(matches[3])) {
 		return {};
 	}
 
@@ -22,13 +22,14 @@ const parseCommitMessage = (message: string, types: Array<string>): { type?: str
 };
 
 export const getCommitMessages = async(octokit: Octokit, context: Context): Promise<Array<CommitInfo>> => {
-	const types = getCommitTypes();
+	const types   = getCommitTypes();
+	const exclude = getExcludeMessages();
 	return (await octokit.paginate(octokit.pulls.listCommits.endpoint.merge({
 		...context.repo,
 		'pull_number': context.payload.number,
 	}))).filter((item: Octokit.PullsListCommitsResponseItem): boolean => !MERGE_MESSAGE.test(item.commit.message)).map((item: Octokit.PullsListCommitsResponseItem): CommitInfo => ({
 		sha: item.sha,
-		...parseCommitMessage(item.commit.message, types),
+		...parseCommitMessage(item.commit.message, types, exclude),
 	}));
 };
 
