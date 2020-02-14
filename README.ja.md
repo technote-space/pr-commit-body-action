@@ -23,6 +23,7 @@
   - [MAX_COMMITS](#max_commits)
   - [TEMPLATE](#template)
   - [COMMIT_TYPES](#commit_types)
+  - [EXCLUDE_MESSAGES](#exclude_messages)
 - [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
   - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
 - [Author](#author)
@@ -75,6 +76,9 @@ ${COMMITS}
 ### COMMIT_TYPES
 コミットタイプ  
 default: `'feat, fix, docs, style, refactor, test, chore'`  
+
+### EXCLUDE_MESSAGES
+除外メッセージ  
 
 ## Action イベント詳細
 ### 対象イベント

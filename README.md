@@ -23,6 +23,7 @@ This is a `GitHub Actions` to add commit history to PR body.
   - [MAX_COMMITS](#max_commits)
   - [TEMPLATE](#template)
   - [COMMIT_TYPES](#commit_types)
+  - [EXCLUDE_MESSAGES](#exclude_messages)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
 - [Author](#author)
@@ -75,6 +76,9 @@ ${COMMITS}
 ### COMMIT_TYPES
 Types.  
 default: `'feat, fix, docs, style, refactor, test, chore'`  
+
+### EXCLUDE_MESSAGES
+Exclude messages.  
 
 ## Action event details
 ### Target events
