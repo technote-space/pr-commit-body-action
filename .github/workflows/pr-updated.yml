@@ -24,10 +24,6 @@ jobs:
         uses: technote-space/pr-commit-body-action@gh-actions
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EXCLUDE_MESSAGES: |
-            trigger workflow
-            Update TOC
-            Update package version
 
   assignToProject:
     name: Assign PullRequest to Project
