@@ -16,9 +16,15 @@ This is a `GitHub Actions` to add commit history to PR body.
 <details>
 <summary>Details</summary>
 
-- [Setup](#setup)
-  - [yarn](#yarn)
-  - [npm](#npm)
+- [Usage](#usage)
+- [Options](#options)
+  - [CHANGE_TEMPLATE](#change_template)
+  - [COMMIT_TEMPLATE](#commit_template)
+  - [MAX_COMMITS](#max_commits)
+  - [TEMPLATE](#template)
+  - [COMMIT_TYPES](#commit_types)
+- [Action event details](#action-event-details)
+  - [Target events](#target-events)
 - [Author](#author)
 
 </details>
