@@ -47,7 +47,7 @@ describe('execute', () => {
 			.persist()
 			.get('/repos/hello/world/pulls/123/commits')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'))
-			.get('/repos/hello/world/pulls?base=feature%2Fchange')
+			.get('/repos/hello/world/pulls?base=feature%2Fchange&state=closed')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'));
 
 		expect(await execute(new Logger(), octokit, context('test body'))).toBe(true);
@@ -67,7 +67,7 @@ describe('execute', () => {
 			.persist()
 			.get('/repos/hello/world/pulls/123/commits')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'))
-			.get('/repos/hello/world/pulls?base=feature%2Fchange')
+			.get('/repos/hello/world/pulls?base=feature%2Fchange&state=closed')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'))
 			.patch('/repos/hello/world/pulls/123')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.update'));

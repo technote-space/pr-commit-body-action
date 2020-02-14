@@ -27,7 +27,7 @@ describe('getMergedPulls', () => {
 	it('should get merged pull request', async() => {
 		nock('https://api.github.com')
 			.persist()
-			.get('/repos/hello/world/pulls?base=feature%2Fchange')
+			.get('/repos/hello/world/pulls?base=feature%2Fchange&state=closed')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'));
 
 		expect(await getMergedPulls(octokit, context)).toEqual([
