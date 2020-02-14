@@ -86,6 +86,12 @@ default: `'feat, fix, docs, style, refactor, test, chore'`
 ### EXCLUDE_MESSAGES
 除外メッセージ  
 
+### TITLE
+タイトル  
+
+### NO_ITEMS
+アイテムがない時に表示するメッセージ  
+
 ## Action イベント詳細
 ### 対象イベント
 | eventName | action |

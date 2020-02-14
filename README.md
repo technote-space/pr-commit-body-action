@@ -84,7 +84,13 @@ Types.
 default: `'feat, fix, docs, style, refactor, test, chore'`  
 
 ### EXCLUDE_MESSAGES
-Exclude messages.  
+Exclude messages.   
+
+### TITLE
+Title.  
+
+### NO_ITEMS
+Message to show if there are no item.  
 
 ## Action event details
 ### Target events
