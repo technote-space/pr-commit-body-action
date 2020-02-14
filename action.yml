@@ -1,0 +1,40 @@
+name: PR Commit Body Action
+
+description: GitHub action to add commit history to PR body.
+
+author: technote-space
+
+inputs:
+  GITHUB_TOKEN:
+    description: Secret GitHub API token to use for making API requests.
+    required: true
+  CHANGE_TEMPLATE:
+    description: Merge item template
+    default: '* ${TITLE} (#${NUMBER}) @${AUTHOR}'
+    required: true
+  COMMIT_TEMPLATE:
+    description: Commit template
+    default: '* ${MESSAGE} (${COMMITS})'
+    required: true
+  MAX_COMMITS:
+    description: Max number to show commits
+    default: '5'
+    required: false
+  TEMPLATE:
+    description: Template
+    default: |
+      ${MERGES}
+      ${COMMITS}
+    required: true
+  COMMIT_TYPES:
+    description: Types
+    default: feat, fix, docs, style, refactor, test, chore
+    required: true
+
+branding:
+  icon: 'file-text'
+  color: 'yellow'
+
+runs:
+  using: node12
+  main: lib/main.js
