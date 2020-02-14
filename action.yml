@@ -37,7 +37,7 @@ inputs:
     description: Title
     required: false
   NO_ITEMS:
-    description: Message to show if no items
+    description: Message to show if there are no items
     required: false
 
 branding:
