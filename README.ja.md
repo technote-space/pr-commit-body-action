@@ -7,7 +7,7 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-This is a `GitHub Actions` to add commit history to PR body.
+プルリクエスト本文にコミット履歴を追加する`GitHub Actions`です。
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ This is a `GitHub Actions` to add commit history to PR body.
 <details>
 <summary>Details</summary>
 
-- [Usage](#usage)
+- [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
 - [Options](#options)
   - [CHANGE_TEMPLATE](#change_template)
   - [COMMIT_TEMPLATE](#commit_template)
@@ -24,15 +24,15 @@ This is a `GitHub Actions` to add commit history to PR body.
   - [TEMPLATE](#template)
   - [COMMIT_TYPES](#commit_types)
   - [EXCLUDE_MESSAGES](#exclude_messages)
-- [Action event details](#action-event-details)
-  - [Target events](#target-events)
+- [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
+  - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
 - [Author](#author)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Usage
-e.g.
+## 使用方法
+例：
 ```yaml
 on:
   pull_request:
@@ -54,19 +54,19 @@ jobs:
 
 ## Options
 ### CHANGE_TEMPLATE
-Merge item template.  
+マージされたプルリク用テンプレート  
 default: `'* ${TITLE} (#${NUMBER}) @${AUTHOR}'`  
 
 ### COMMIT_TEMPLATE
-Commit template.  
+コミット用テンプレート  
 default: `'* ${MESSAGE} (${COMMITS})'`  
 
 ### MAX_COMMITS
-Max number to show commits.  
+最大コミット表示数  
 default: `'5'`  
 
 ### TEMPLATE
-Template.  
+テンプレート  
 default:
 ```
 ${MERGES}
@@ -74,14 +74,14 @@ ${COMMITS}
 ```  
 
 ### COMMIT_TYPES
-Types.  
+コミットタイプ  
 default: `'feat, fix, docs, style, refactor, test, chore'`  
 
 ### EXCLUDE_MESSAGES
-Exclude messages.  
+除外メッセージ  
 
-## Action event details
-### Target events
+## Action イベント詳細
+### 対象イベント
 | eventName | action |
 |:---:|:---:|
 |pull_request|opened, reopened, synchronize|

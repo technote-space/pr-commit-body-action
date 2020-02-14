@@ -1,25 +1,194 @@
+/* eslint-disable no-magic-numbers */
+import { Context } from '@actions/github/lib/context';
+import nock from 'nock';
 import { resolve } from 'path';
-import { testEnv, spyOnStdout, spyOnExec, testChildProcess, getOctokit, generateContext, execCalledWith, stdoutCalledWith } from '@technote-space/github-action-test-helper';
 import { Logger } from '@technote-space/github-action-helper';
+import {
+	testEnv,
+	generateContext,
+	disableNetConnect,
+	getApiFixture,
+	spyOnStdout,
+	getOctokit,
+	stdoutCalledWith,
+} from '@technote-space/github-action-test-helper';
 import { execute } from '../src/process';
 
-const rootDir = resolve(__dirname, '..');
+const rootDir        = resolve(__dirname, '..');
+const fixtureRootDir = resolve(__dirname, 'fixtures');
+const octokit        = getOctokit();
+const context        = (body?: string): Context => generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge'}, {
+	payload: {
+		number: 123,
+		'pull_request': {
+			head: {
+				ref: 'feature/change',
+			},
+			body,
+		},
+	},
+});
+beforeEach(() => {
+	Logger.resetForTesting();
+});
 
-describe('getPayload', () => {
+describe('execute', () => {
 	testEnv(rootDir);
-	testChildProcess();
+	disableNetConnect(nock);
 
-	it('should get payload', async() => {
-		const mockExec   = spyOnExec();
+	it('should return false', async() => {
+		expect(await execute(new Logger(), octokit, generateContext({}))).toBe(false);
+		expect(await execute(new Logger(), octokit, context())).toBe(false);
+	});
+
+	it('should return true 1', async() => {
 		const mockStdout = spyOnStdout();
+		nock('https://api.github.com')
+			.persist()
+			.get('/repos/hello/world/pulls/123/commits')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'))
+			.get('/repos/hello/world/pulls?base=feature%2Fchange&state=closed')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'));
 
-		await execute(new Logger(), getOctokit(), generateContext({}));
+		expect(await execute(new Logger(), octokit, context('test body'))).toBe(true);
 
-		execCalledWith(mockExec, ['ls -lat']);
 		stdoutCalledWith(mockStdout, [
-			'{\n\t"action": ""\n}',
-			'[command]ls -lat',
-			'  >> stdout',
+			'::group::Pull Requests',
+			JSON.stringify([
+				{
+					author: 'octocat',
+					title: 'Amazing new feature (#456)',
+					number: 1347,
+				},
+				{
+					author: 'octocat',
+					title: 'feat: add new feature1 (#123, #234)',
+					number: 1348,
+				},
+			], null, '\t'),
+			'::endgroup::',
+			'::group::Commits',
+			JSON.stringify([
+				{
+					'message': 'feat: add new feature1 (#123, #234)',
+					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'feat: add new feature1 (#123, #234)',
+				},
+				{
+					'message': 'feat: add new feature2',
+					'commits': '4dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'feat :  add new feature2',
+				},
+				{
+					'message': 'fix: Fix all the bugs',
+					'commits': '1dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'fix: Fix all the bugs',
+				},
+				{
+					'message': 'style: tweaks',
+					'commits': '7dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'style: tweaks',
+				},
+				{
+					'message': 'refactor: refactoring',
+					'commits': '8dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'refactor: refactoring',
+				},
+				{
+					'message': 'chore: tweaks',
+					'commits': '2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'chore: tweaks',
+				},
+				{
+					'message': 'chore: trigger workflow',
+					'commits': '000b09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'chore: trigger workflow',
+				},
+			], null, '\t'),
+			'::endgroup::',
+			'::group::Templates',
+			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat"',
+			'"* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'::endgroup::',
+			'> There is no diff.',
+		]);
+	});
+
+	it('should return true 2', async() => {
+		process.env.INPUT_MAX_COMMITS = '3';
+		const mockStdout              = spyOnStdout();
+		nock('https://api.github.com')
+			.persist()
+			.get('/repos/hello/world/pulls/123/commits')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'))
+			.get('/repos/hello/world/pulls?base=feature%2Fchange&state=closed')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'))
+			.patch('/repos/hello/world/pulls/123')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.update'));
+
+		expect(await execute(new Logger(), octokit, context('test1\n<!-- START pr-commits -->\ntest2\n<!-- END pr-commits -->\ntest3'))).toBe(true);
+
+		stdoutCalledWith(mockStdout, [
+			'::group::Pull Requests',
+			JSON.stringify([
+				{
+					author: 'octocat',
+					title: 'Amazing new feature (#456)',
+					number: 1347,
+				},
+				{
+					author: 'octocat',
+					title: 'feat: add new feature1 (#123, #234)',
+					number: 1348,
+				},
+			], null, '\t'),
+			'::endgroup::',
+			'::group::Commits',
+			JSON.stringify([
+				{
+					'message': 'feat: add new feature1 (#123, #234)',
+					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'feat: add new feature1 (#123, #234)',
+				},
+				{
+					'message': 'feat: add new feature2',
+					'commits': '4dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'feat :  add new feature2',
+				},
+				{
+					'message': 'fix: Fix all the bugs',
+					'commits': '1dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'fix: Fix all the bugs',
+				},
+				{
+					'message': 'style: tweaks',
+					'commits': '7dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'style: tweaks',
+				},
+				{
+					'message': 'refactor: refactoring',
+					'commits': '8dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'refactor: refactoring',
+				},
+				{
+					'message': 'chore: tweaks',
+					'commits': '2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...',
+					'raw': 'chore: tweaks',
+				},
+				{
+					'message': 'chore: trigger workflow',
+					'commits': '000b09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'chore: trigger workflow',
+				},
+			], null, '\t'),
+			'::endgroup::',
+			'::group::Templates',
+			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat"',
+			'"* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'::endgroup::',
+			'> Updated.',
 		]);
 	});
 });
