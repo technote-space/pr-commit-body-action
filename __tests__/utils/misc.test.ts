@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
+import { testEnv } from '@technote-space/github-action-test-helper';
 import { resolve } from 'path';
 import { replaceVariables, transform } from '../../src/utils/misc';
 import { getCommitTypes, getBodyTemplate, getMergeTemplate, getCommitTemplate, getMaxCommitNumber } from '../../src/utils/misc';

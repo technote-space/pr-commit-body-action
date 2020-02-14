@@ -22,7 +22,7 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 	const pullsTemplate  = pulls.map(pull => replaceVariables(getMergeTemplate(), [
 		{key: 'TITLE', value: pull.title},
 		{key: 'NUMBER', value: String(pull.number)},
-		{key: '$AUTHOR', value: pull.author},
+		{key: 'AUTHOR', value: pull.author},
 	])).join('\n');
 	const commitTemplate = commits.map(commit => replaceVariables(getCommitTemplate(), [
 		{key: 'MESSAGE', value: commit.message},
