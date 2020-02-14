@@ -15,6 +15,16 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
+  history:
+    name: Pull Request Body
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.pull_request.head.ref, 'release/')
+    steps:
+      - name: Pull Request Body
+        uses: technote-space/get-git-comment-action@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   assignToProject:
     name: Assign PullRequest to Project
     runs-on: ubuntu-latest

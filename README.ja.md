@@ -7,7 +7,7 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-This is a `GitHub Actions` to add commit history to PR body.
+プルリクエスト本文にコミット履歴を追加する`GitHub Actions`です。
 
 ## Table of Contents
 
@@ -24,8 +24,8 @@ This is a `GitHub Actions` to add commit history to PR body.
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Usage
-e.g.
+## 使用方法
+例：
 ```yaml
 on:
   pull_request:
@@ -47,19 +47,19 @@ jobs:
 
 ## Options
 ### CHANGE_TEMPLATE
-Merge item template.  
+マージされたプルリク用テンプレート  
 default: `'* ${TITLE} (#${NUMBER}) @${AUTHOR}'`  
 
 ### COMMIT_TEMPLATE
-Commit template.  
+コミット用テンプレート  
 default: `'* ${MESSAGE} (${COMMITS})'`  
 
 ### MAX_COMMITS
-Max number to show commits.  
+最大コミット表示数  
 default: `'5'`  
 
 ### TEMPLATE
-Template.  
+テンプレート  
 default:
 ```
 ${MERGES}
@@ -67,11 +67,11 @@ ${COMMITS}
 ```  
 
 ### COMMIT_TYPES
-Types.  
+コミットタイプ  
 default: `'feat, fix, docs, style, refactor, test, chore'`  
 
-## Action event details
-### Target events
+## Action イベント詳細
+### 対象イベント
 | eventName | action |
 |:---:|:---:|
 |pull_request|opened, reopened, synchronize|
