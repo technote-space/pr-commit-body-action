@@ -76,6 +76,9 @@ ${COMMITS}
 コミットタイプ  
 default: `'feat, fix, docs, style, refactor, test, chore'`  
 
+### EXCLUDE_MESSAGES
+除外メッセージ  
+
 ## Action イベント詳細
 ### 対象イベント
 | eventName | action |

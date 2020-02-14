@@ -76,6 +76,9 @@ ${COMMITS}
 Types.  
 default: `'feat, fix, docs, style, refactor, test, chore'`  
 
+### EXCLUDE_MESSAGES
+Exclude messages.  
+
 ## Action event details
 ### Target events
 | eventName | action |
