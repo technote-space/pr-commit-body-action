@@ -33,6 +33,12 @@ inputs:
   EXCLUDE_MESSAGES:
     description: Exclude messages
     required: false
+  TITLE:
+    description: Title
+    required: false
+  NO_ITEMS:
+    description: Message to show if no items
+    required: false
 
 branding:
   icon: 'file-text'
