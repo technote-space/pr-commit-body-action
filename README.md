@@ -24,6 +24,8 @@ This is a `GitHub Actions` to add commit history to PR body.
   - [TEMPLATE](#template)
   - [COMMIT_TYPES](#commit_types)
   - [EXCLUDE_MESSAGES](#exclude_messages)
+  - [TITLE](#title)
+  - [NO_ITEMS](#no_items)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
 - [Author](#author)
