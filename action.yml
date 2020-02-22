@@ -43,6 +43,9 @@ inputs:
     description: A keyword linking a pull request to issue.
     default: closes
     required: false
+  FILTER_PR:
+    description: Whether to filter pull requests by semantic message rule.
+    required: false
 
 branding:
   icon: 'file-text'

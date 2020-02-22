@@ -1,7 +1,7 @@
 import { getInput } from '@actions/core';
 import { Utils } from '@technote-space/github-action-helper';
 import updateSection from 'update-section';
-import { START, END, MATCH_START, MATCH_END, LINK_ISSUE_KEYWORDS } from '../constant';
+import { START, END, MATCH_START, MATCH_END, LINK_ISSUE_KEYWORDS, SEMANTIC_MESSAGE } from '../constant';
 
 export const getCommitTypes     = (): Array<string> => Utils.getArrayInput('COMMIT_TYPES', true);
 export const getTitle           = (): string => getInput('TITLE');
@@ -44,3 +44,17 @@ export const getLinkIssueKeyword = (): string => {
 
 	return '';
 };
+export const parseCommitMessage  = (message: string, types: Array<string>, exclude: Array<string>): { type?: string; message?: string; raw?: string } => {
+	const target  = message.trim().replace(/\r?\n|\r/g, ' ');
+	const matches = target.match(SEMANTIC_MESSAGE);
+	if (!matches || !types.includes(matches[1]) || exclude.includes(matches[3].toLowerCase())) {
+		return {};
+	}
+
+	return {
+		type: matches[1],
+		message: matches[3],
+		raw: message,
+	};
+};
+export const isFilterPulls       = (): boolean => Utils.getBoolValue(getInput('FILTER_PR'));

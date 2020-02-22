@@ -1,43 +1,25 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
-import { getCommitTypes, getMaxCommitNumber, getExcludeMessages } from './misc';
+import { getCommitTypes, getMaxCommitNumber, getExcludeMessages, parseCommitMessage } from './misc';
 import { CommitInfo, CommitItemInfo } from '../types';
 
 const MERGE_MESSAGE = /^Merge pull request #\d+ /;
-// <type>(<scope>): <subject>
-// @see https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716#semantic-commit-messages
-const SEMANTIC_MESSAGE = /^(.+?)\s*(\(.+?\)\s*)?:\s*(.+?)$/;
 
-const parseCommitMessage = (message: string, types: Array<string>, exclude: Array<string>): { type?: string; message?: string; raw?: string } => {
-	const target  = message.trim().replace(/\r?\n|\r/g, ' ');
-	const matches = target.match(SEMANTIC_MESSAGE);
-	if (!matches || !types.includes(matches[1]) || exclude.includes(matches[3].toLowerCase())) {
-		return {};
-	}
-
-	return {
-		type: matches[1],
-		message: matches[3],
-		raw: message,
-	};
-};
-
-export const getCommitMessages = async(octokit: Octokit, context: Context): Promise<Array<CommitInfo>> => {
-	const types   = getCommitTypes();
-	const exclude = getExcludeMessages();
-	return (await octokit.paginate(octokit.pulls.listCommits.endpoint.merge({
+export const getCommitMessages = async(types: Array<string>, exclude: Array<string>, octokit: Octokit, context: Context): Promise<Array<CommitInfo>> => (await octokit.paginate(
+	octokit.pulls.listCommits.endpoint.merge({
 		...context.repo,
 		'pull_number': context.payload.number,
-	}))).filter((item: Octokit.PullsListCommitsResponseItem): boolean => !MERGE_MESSAGE.test(item.commit.message)).map((item: Octokit.PullsListCommitsResponseItem): CommitInfo => ({
-		sha: item.sha,
-		...parseCommitMessage(item.commit.message, types, exclude),
-	}));
-};
+	}),
+)).filter((item: Octokit.PullsListCommitsResponseItem): boolean => !MERGE_MESSAGE.test(item.commit.message)).map((item: Octokit.PullsListCommitsResponseItem): CommitInfo => ({
+	sha: item.sha,
+	...parseCommitMessage(item.commit.message, types, exclude),
+}));
 
 export const getCommitItems = async(octokit: Octokit, context: Context): Promise<Array<CommitItemInfo>> => {
 	const types     = getCommitTypes();
+	const exclude   = getExcludeMessages();
 	const maxNumber = getMaxCommitNumber();
-	return (await getCommitMessages(octokit, context))
+	return (await getCommitMessages(types, exclude, octokit, context))
 		.filter(item => item.type)
 		.map(item => item as Required<CommitInfo>)
 		.reduce((acc, item) => {
