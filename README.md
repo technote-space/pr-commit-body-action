@@ -89,7 +89,7 @@ ${COMMITS}
 
 ### COMMIT_TYPES
 Types.  
-default: `'feat, fix, docs, style, refactor, test, chore'`  
+default: `'feat, fix, docs, style, refactor, chore'`  
 
 ### EXCLUDE_MESSAGES
 Exclude messages.   
