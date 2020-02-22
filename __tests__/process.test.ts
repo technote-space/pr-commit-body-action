@@ -116,8 +116,9 @@ describe('execute', () => {
 	});
 
 	it('should return true 2', async() => {
-		process.env.INPUT_MAX_COMMITS = '3';
-		const mockStdout              = spyOnStdout();
+		process.env.INPUT_MAX_COMMITS        = '3';
+		process.env.INPUT_LINK_ISSUE_KEYWORD = 'fix';
+		const mockStdout                     = spyOnStdout();
 		nock('https://api.github.com')
 			.persist()
 			.get('/repos/hello/world/pulls/123/commits')
@@ -184,9 +185,9 @@ describe('execute', () => {
 			], null, '\t'),
 			'::endgroup::',
 			'::group::Templates',
-			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat"',
+			'"* Amazing new feature (fix #456) (#1347) @octocat\\n* feat: add new feature1 (fix #123, fix #234) (#1348) @octocat"',
 			'"* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
-			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* Amazing new feature (fix #456) (#1347) @octocat\\n* feat: add new feature1 (fix #123, fix #234) (#1348) @octocat\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
 			'::endgroup::',
 			'> Updated.',
 		]);

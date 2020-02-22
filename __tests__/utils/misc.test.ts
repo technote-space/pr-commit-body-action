@@ -2,7 +2,16 @@
 import { testEnv } from '@technote-space/github-action-test-helper';
 import { resolve } from 'path';
 import { replaceVariables, transform } from '../../src/utils/misc';
-import { getCommitTypes, getBodyTemplate, getMergeTemplate, getCommitTemplate, getMaxCommitNumber, getExcludeMessages } from '../../src/utils/misc';
+import {
+	getCommitTypes,
+	getBodyTemplate,
+	getMergeTemplate,
+	getCommitTemplate,
+	getMaxCommitNumber,
+	getExcludeMessages,
+	addCloseAnnotation,
+	getLinkIssueKeyword,
+} from '../../src/utils/misc';
 
 const rootDir = resolve(__dirname, '../..');
 
@@ -42,7 +51,7 @@ describe('getCommitTypes', () => {
 	});
 
 	it('should get default commit types', () => {
-		expect(getCommitTypes()).toEqual(['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore']);
+		expect(getCommitTypes()).toEqual(['feat', 'fix', 'docs', 'style', 'refactor', 'chore']);
 	});
 });
 
@@ -133,5 +142,36 @@ describe('getExcludeMessages', () => {
 
 	it('should return empty', () => {
 		expect(getExcludeMessages()).toEqual([]);
+	});
+});
+
+describe('addCloseAnnotation', () => {
+	testEnv(rootDir);
+
+	it('should add close annotation', () => {
+		expect(addCloseAnnotation('test message #123', 'closes')).toBe('test message closes #123');
+	});
+
+	it('should not add close annotation', () => {
+		expect(addCloseAnnotation('test message #123', '')).toBe('test message #123');
+	});
+});
+
+describe('getLinkIssueKeyword', () => {
+	testEnv(rootDir);
+
+	it('should get default keyword 1', () => {
+		expect(getLinkIssueKeyword()).toBe('closes');
+	});
+
+	it('should get default keyword 2', () => {
+		process.env.INPUT_LINK_ISSUE_KEYWORD = 'test';
+
+		expect(getLinkIssueKeyword()).toBe('');
+	});
+
+	it('should get keyword', () => {
+		process.env.INPUT_LINK_ISSUE_KEYWORD = 'close';
+		expect(getLinkIssueKeyword()).toBe('close');
 	});
 });

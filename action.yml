@@ -28,7 +28,7 @@ inputs:
     required: true
   COMMIT_TYPES:
     description: Types
-    default: feat, fix, docs, style, refactor, test, chore
+    default: feat, fix, docs, style, refactor, chore
     required: true
   EXCLUDE_MESSAGES:
     description: Exclude messages
@@ -38,6 +38,13 @@ inputs:
     required: false
   NO_ITEMS:
     description: Message to show if there are no items
+    required: false
+  LINK_ISSUE_KEYWORD:
+    description: A keyword linking a pull request to issue.
+    default: closes
+    required: false
+  FILTER_PR:
+    description: Whether to filter pull requests by semantic message rule.
     required: false
 
 branding:
