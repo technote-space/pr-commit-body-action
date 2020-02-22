@@ -2,7 +2,16 @@
 import { testEnv } from '@technote-space/github-action-test-helper';
 import { resolve } from 'path';
 import { replaceVariables, transform } from '../../src/utils/misc';
-import { getCommitTypes, getBodyTemplate, getMergeTemplate, getCommitTemplate, getMaxCommitNumber, getExcludeMessages, getLinkIssueKeyword } from '../../src/utils/misc';
+import {
+	getCommitTypes,
+	getBodyTemplate,
+	getMergeTemplate,
+	getCommitTemplate,
+	getMaxCommitNumber,
+	getExcludeMessages,
+	addCloseAnnotation,
+	getLinkIssueKeyword,
+} from '../../src/utils/misc';
 
 const rootDir = resolve(__dirname, '../..');
 
@@ -136,6 +145,18 @@ describe('getExcludeMessages', () => {
 	});
 });
 
+describe('addCloseAnnotation', () => {
+	testEnv(rootDir);
+
+	it('should add close annotation', () => {
+		expect(addCloseAnnotation('test message #123', 'closes')).toBe('test message closes #123');
+	});
+
+	it('should not add close annotation', () => {
+		expect(addCloseAnnotation('test message #123', '')).toBe('test message #123');
+	});
+});
+
 describe('getLinkIssueKeyword', () => {
 	testEnv(rootDir);
 
@@ -146,7 +167,7 @@ describe('getLinkIssueKeyword', () => {
 	it('should get default keyword 2', () => {
 		process.env.INPUT_LINK_ISSUE_KEYWORD = 'test';
 
-		expect(getLinkIssueKeyword()).toBe('closes');
+		expect(getLinkIssueKeyword()).toBe('');
 	});
 
 	it('should get keyword', () => {

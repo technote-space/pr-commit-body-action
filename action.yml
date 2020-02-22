@@ -42,7 +42,7 @@ inputs:
   LINK_ISSUE_KEYWORD:
     description: A keyword linking a pull request to issue.
     default: closes
-    required: true
+    required: false
 
 branding:
   icon: 'file-text'
