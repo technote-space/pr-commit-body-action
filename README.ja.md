@@ -100,6 +100,15 @@ default: `'feat, fix, docs, style, refactor, test, chore'`
 ### NO_ITEMS
 アイテムがない時に表示するメッセージ  
 
+### LINK_ISSUE_KEYWORD
+プルリクエストを Issue に紐付けるためのキーワード  
+このオプションが設定されている場合、この値が Issue 参照に付与されます。 (例：` #234` => ` closes #123`)
+default: `'closes'`
+
+### FILTER_PR
+Semantic message のルールでプルリクエストをフィルタするかどうか  
+default: `'false'`
+
 ## Action イベント詳細
 ### 対象イベント
 | eventName | action |
