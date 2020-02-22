@@ -16,6 +16,8 @@ This is a `GitHub Actions` to add commit history to PR body.
 <details>
 <summary>Details</summary>
 
+- [Screenshots](#screenshots)
+  - [Auto generated body](#auto-generated-body)
 - [Usage](#usage)
 - [Options](#options)
   - [CHANGE_TEMPLATE](#change_template)
@@ -26,6 +28,8 @@ This is a `GitHub Actions` to add commit history to PR body.
   - [EXCLUDE_MESSAGES](#exclude_messages)
   - [TITLE](#title)
   - [NO_ITEMS](#no_items)
+  - [LINK_ISSUE_KEYWORD](#link_issue_keyword)
+  - [FILTER_PR](#filter_pr)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
 - [Author](#author)
