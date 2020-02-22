@@ -29,7 +29,7 @@ jobs:
             Update TOC
             Update package version
           TITLE: '## Changes'
-          LINK_ISSUE_KEYWORD: (startsWith(github.event.pull_request.head.ref, 'release/') && 'closes') || ''
+          LINK_ISSUE_KEYWORD: ${{ (startsWith(github.event.pull_request.head.ref, 'release/') && 'closes') || '' }}
           FILTER_PR: true
 
   assignToProject:
