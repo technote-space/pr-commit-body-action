@@ -39,6 +39,10 @@ inputs:
   NO_ITEMS:
     description: Message to show if there are no items
     required: false
+  LINK_ISSUE_KEYWORD:
+    description: A keyword linking a pull request to issue.
+    default: closes
+    required: true
 
 branding:
   icon: 'file-text'

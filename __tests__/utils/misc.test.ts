@@ -2,7 +2,7 @@
 import { testEnv } from '@technote-space/github-action-test-helper';
 import { resolve } from 'path';
 import { replaceVariables, transform } from '../../src/utils/misc';
-import { getCommitTypes, getBodyTemplate, getMergeTemplate, getCommitTemplate, getMaxCommitNumber, getExcludeMessages } from '../../src/utils/misc';
+import { getCommitTypes, getBodyTemplate, getMergeTemplate, getCommitTemplate, getMaxCommitNumber, getExcludeMessages, getLinkIssueKeyword } from '../../src/utils/misc';
 
 const rootDir = resolve(__dirname, '../..');
 
@@ -133,5 +133,24 @@ describe('getExcludeMessages', () => {
 
 	it('should return empty', () => {
 		expect(getExcludeMessages()).toEqual([]);
+	});
+});
+
+describe('getLinkIssueKeyword', () => {
+	testEnv(rootDir);
+
+	it('should get default keyword 1', () => {
+		expect(getLinkIssueKeyword()).toBe('closes');
+	});
+
+	it('should get default keyword 2', () => {
+		process.env.INPUT_LINK_ISSUE_KEYWORD = 'test';
+
+		expect(getLinkIssueKeyword()).toBe('closes');
+	});
+
+	it('should get keyword', () => {
+		process.env.INPUT_LINK_ISSUE_KEYWORD = 'close';
+		expect(getLinkIssueKeyword()).toBe('close');
 	});
 });

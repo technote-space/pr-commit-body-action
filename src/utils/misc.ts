@@ -1,7 +1,7 @@
 import { getInput } from '@actions/core';
 import { Utils } from '@technote-space/github-action-helper';
 import updateSection from 'update-section';
-import { START, END, MATCH_START, MATCH_END } from '../constant';
+import { START, END, MATCH_START, MATCH_END, LINK_ISSUE_KEYWORDS } from '../constant';
 
 export const getCommitTypes     = (): Array<string> => Utils.getArrayInput('COMMIT_TYPES', true);
 export const getTitle           = (): string => getInput('TITLE');
@@ -24,15 +24,23 @@ export const getCommitTemplate  = (): string => getInput('COMMIT_TEMPLATE', {req
 export const getMaxCommitNumber = (): number => /^\d+$/.test(getInput('MAX_COMMITS')) ? Number(getInput('MAX_COMMITS')) : 5; // eslint-disable-line no-magic-numbers
 export const getExcludeMessages = (): Array<string> => Utils.getArrayInput('EXCLUDE_MESSAGES').map(item => item.toLowerCase());
 export const replaceVariables   = (string: string, variables: Array<{ key: string; value: string }>): string => variables.reduce((acc, variable) => Utils.replaceAll(acc, `\${${variable.key}}`, variable.value), string);
-export const addCloseAnnotation = (message: string): string => message.replace(/(#\d+)/g, 'closes $1');
+export const addCloseAnnotation = (message: string, keyword: string): string => message.replace(/(#\d+)/g, keyword + ' $1');
 
-const matchesStart     = (line: string): boolean => MATCH_START.test(line);
-const matchesEnd       = (line: string): boolean => MATCH_END.test(line);
-export const transform = (content: string, template: string): string => {
+const matchesStart               = (line: string): boolean => MATCH_START.test(line);
+const matchesEnd                 = (line: string): boolean => MATCH_END.test(line);
+export const transform           = (content: string, template: string): string => {
 	const info = updateSection.parse(content.split('\n'), matchesStart, matchesEnd);
 	if (!info.hasStart) {
 		return content;
 	}
 
 	return updateSection(content, `${START}\n${template}\n${END}`, matchesStart, matchesEnd);
+};
+export const getLinkIssueKeyword = (): string => {
+	const keyword = getInput('LINK_ISSUE_KEYWORD', {required: true});
+	if (LINK_ISSUE_KEYWORDS.includes(keyword)) {
+		return keyword;
+	}
+
+	return LINK_ISSUE_KEYWORDS[0];
 };
