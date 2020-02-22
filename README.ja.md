@@ -33,6 +33,12 @@
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## スクリーンショット
+### 自動生成された本文
+![pr-body](https://raw.githubusercontent.com/technote-space/pr-commit-body-action/images/pr-body.png)
+
+このプルリクエストの本文の一部（赤で囲まれている箇所）は、マージされたPR（緑で囲まれている箇所）とコミット（青で囲まれている箇所）によって自動的に生成されています。
+
 ## 使用方法
 1. ワークフローを設定  
     例：
