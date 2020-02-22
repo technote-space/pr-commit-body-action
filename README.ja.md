@@ -33,6 +33,12 @@
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## スクリーンショット
+### 自動生成された本文
+![pr-body](https://raw.githubusercontent.com/technote-space/pr-commit-body-action/images/pr-body.png)
+
+このプルリクエストの本文の一部（赤で囲まれている箇所）は、マージされたPR（緑で囲まれている箇所）とコミット（青で囲まれている箇所）によって自動的に生成されています。
+
 ## 使用方法
 1. ワークフローを設定  
     例：
@@ -83,7 +89,7 @@ ${COMMITS}
 
 ### COMMIT_TYPES
 コミットタイプ  
-default: `'feat, fix, docs, style, refactor, test, chore'`  
+default: `'feat, fix, docs, style, refactor, chore'`  
 
 ### EXCLUDE_MESSAGES
 除外メッセージ  
@@ -93,6 +99,15 @@ default: `'feat, fix, docs, style, refactor, test, chore'`
 
 ### NO_ITEMS
 アイテムがない時に表示するメッセージ  
+
+### LINK_ISSUE_KEYWORD
+プルリクエストを Issue に紐付けるためのキーワード  
+このオプションが設定されている場合、この値が Issue 参照に付与されます。 (例：` #234` => ` closes #123`)
+default: `'closes'`
+
+### FILTER_PR
+Semantic message のルールでプルリクエストをフィルタするかどうか  
+default: `'false'`
 
 ## Action イベント詳細
 ### 対象イベント

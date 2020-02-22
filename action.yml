@@ -28,7 +28,7 @@ inputs:
     required: true
   COMMIT_TYPES:
     description: Types
-    default: feat, fix, docs, style, refactor, test, chore
+    default: feat, fix, docs, style, refactor, chore
     required: true
   EXCLUDE_MESSAGES:
     description: Exclude messages

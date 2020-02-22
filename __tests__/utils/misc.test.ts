@@ -51,7 +51,7 @@ describe('getCommitTypes', () => {
 	});
 
 	it('should get default commit types', () => {
-		expect(getCommitTypes()).toEqual(['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore']);
+		expect(getCommitTypes()).toEqual(['feat', 'fix', 'docs', 'style', 'refactor', 'chore']);
 	});
 });
 
