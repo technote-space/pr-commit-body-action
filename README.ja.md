@@ -16,6 +16,8 @@
 <details>
 <summary>Details</summary>
 
+- [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
+  - [自動生成された本文](#%E8%87%AA%E5%8B%95%E7%94%9F%E6%88%90%E3%81%95%E3%82%8C%E3%81%9F%E6%9C%AC%E6%96%87)
 - [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
 - [Options](#options)
   - [CHANGE_TEMPLATE](#change_template)
@@ -26,12 +28,20 @@
   - [EXCLUDE_MESSAGES](#exclude_messages)
   - [TITLE](#title)
   - [NO_ITEMS](#no_items)
+  - [LINK_ISSUE_KEYWORD](#link_issue_keyword)
+  - [FILTER_PR](#filter_pr)
 - [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
   - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
 - [Author](#author)
 
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## スクリーンショット
+### 自動生成された本文
+![pr-body](https://raw.githubusercontent.com/technote-space/pr-commit-body-action/images/pr-body.png)
+
+このプルリクエストの本文の一部（赤で囲まれている箇所）は、マージされたPR（緑で囲まれている箇所）とコミット（青で囲まれている箇所）によって自動的に生成されています。
 
 ## 使用方法
 1. ワークフローを設定  
@@ -83,7 +93,7 @@ ${COMMITS}
 
 ### COMMIT_TYPES
 コミットタイプ  
-default: `'feat, fix, docs, style, refactor, test, chore'`  
+default: `'feat, fix, docs, style, refactor, chore'`  
 
 ### EXCLUDE_MESSAGES
 除外メッセージ  
@@ -93,6 +103,15 @@ default: `'feat, fix, docs, style, refactor, test, chore'`
 
 ### NO_ITEMS
 アイテムがない時に表示するメッセージ  
+
+### LINK_ISSUE_KEYWORD
+プルリクエストを Issue に紐付けるためのキーワード  
+このオプションが設定されている場合、この値が Issue 参照に付与されます。 (例：` #234` => ` closes #123`)
+default: `'closes'`
+
+### FILTER_PR
+Semantic message のルールでプルリクエストをフィルタするかどうか  
+default: `'false'`
 
 ## Action イベント詳細
 ### 対象イベント
