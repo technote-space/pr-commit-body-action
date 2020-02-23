@@ -10,10 +10,13 @@ export const getCommitMessages = async(types: Array<string>, exclude: Array<stri
 		...context.repo,
 		'pull_number': context.payload.number,
 	}),
-)).filter((item: Octokit.PullsListCommitsResponseItem): boolean => !MERGE_MESSAGE.test(item.commit.message)).map((item: Octokit.PullsListCommitsResponseItem): CommitInfo => ({
-	sha: item.sha,
-	...parseCommitMessage(item.commit.message, types, exclude),
-}));
+))
+	.filter((item: Octokit.PullsListCommitsResponseItem): boolean => !MERGE_MESSAGE.test(item.commit.message))
+	.map((item: Octokit.PullsListCommitsResponseItem): Array<CommitInfo> => item.commit.message.split('\n').filter(message => message).map(message => ({
+		sha: item.sha,
+		...parseCommitMessage(message, types, exclude),
+	})))
+	.reduce((acc, items) => acc.concat(items));
 
 export const getCommitItems = async(octokit: Octokit, context: Context): Promise<Array<CommitItemInfo>> => {
 	const types     = getCommitTypes();

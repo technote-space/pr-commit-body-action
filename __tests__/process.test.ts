@@ -70,9 +70,19 @@ describe('execute', () => {
 			'::group::Commits',
 			JSON.stringify([
 				{
-					'message': 'feat: add new feature1 (#123, #234)',
+					'message': 'feat: add new features',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
-					'raw': 'feat: add new feature1 (#123, #234)',
+					'raw': 'feat: add new features',
+				},
+				{
+					'message': 'feat: add new feature1 (#123)',
+					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'feat: add new feature1 (#123)',
+				},
+				{
+					'message': 'feat: add new feature2 (#234)',
+					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'feat: add new feature2 (#234)',
 				},
 				{
 					'message': 'feat: add new feature2',
@@ -100,6 +110,11 @@ describe('execute', () => {
 					'raw': 'chore: tweaks',
 				},
 				{
+					'message': 'chore: tweaks (#345, #456)',
+					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'chore: tweaks (#345, #456)',
+				},
+				{
 					'message': 'chore: trigger workflow',
 					'commits': '000b09b5b57875f334f61aebed695e2e4193db5e',
 					'raw': 'chore: trigger workflow',
@@ -108,8 +123,8 @@ describe('execute', () => {
 			'::endgroup::',
 			'::group::Templates',
 			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat"',
-			'"* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
-			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature1 (closes #123) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature2 (closes #234) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (closes #345, closes #456) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* Amazing new feature (closes #456) (#1347) @octocat\\n* feat: add new feature1 (closes #123, closes #234) (#1348) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature1 (closes #123) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature2 (closes #234) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (closes #345, closes #456) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
 			'::endgroup::',
 			'> There is no diff.',
 		]);
@@ -148,9 +163,19 @@ describe('execute', () => {
 			'::group::Commits',
 			JSON.stringify([
 				{
-					'message': 'feat: add new feature1 (#123, #234)',
+					'message': 'feat: add new features',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
-					'raw': 'feat: add new feature1 (#123, #234)',
+					'raw': 'feat: add new features',
+				},
+				{
+					'message': 'feat: add new feature1 (#123)',
+					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'feat: add new feature1 (#123)',
+				},
+				{
+					'message': 'feat: add new feature2 (#234)',
+					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'feat: add new feature2 (#234)',
 				},
 				{
 					'message': 'feat: add new feature2',
@@ -178,6 +203,11 @@ describe('execute', () => {
 					'raw': 'chore: tweaks',
 				},
 				{
+					'message': 'chore: tweaks (#345, #456)',
+					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'raw': 'chore: tweaks (#345, #456)',
+				},
+				{
 					'message': 'chore: trigger workflow',
 					'commits': '000b09b5b57875f334f61aebed695e2e4193db5e',
 					'raw': 'chore: trigger workflow',
@@ -186,8 +216,8 @@ describe('execute', () => {
 			'::endgroup::',
 			'::group::Templates',
 			'"* Amazing new feature (fix #456) (#1347) @octocat\\n* feat: add new feature1 (fix #123, fix #234) (#1348) @octocat"',
-			'"* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
-			'"* Amazing new feature (fix #456) (#1347) @octocat\\n* feat: add new feature1 (fix #123, fix #234) (#1348) @octocat\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature1 (fix #123) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature2 (fix #234) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: tweaks (fix #345, fix #456) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* Amazing new feature (fix #456) (#1347) @octocat\\n* feat: add new feature1 (fix #123, fix #234) (#1348) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature1 (fix #123) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature2 (fix #234) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* feat: add new feature2 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: tweaks (fix #345, fix #456) (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
 			'::endgroup::',
 			'> Updated.',
 		]);
