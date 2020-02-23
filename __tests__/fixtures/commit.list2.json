@@ -173,7 +173,7 @@
         "email": "support@github.com",
         "date": "2011-04-14T16:00:49Z"
       },
-      "message": "feat: add new feature1 (#123, #234)",
+      "message": "feat: add new features\n\nfeat: add new feature1 (#123)\nfeat: add new feature2 (#234)\nchore: tweaks (#345, #456)",
       "tree": {
         "url": "https://api.github.com/repos/octocat/Hello-World/tree/3dcb09b5b57875f334f61aebed695e2e4193db5e",
         "sha": "3dcb09b5b57875f334f61aebed695e2e4193db5e"
