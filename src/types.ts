@@ -1,18 +1,20 @@
-export type CommitInfo = {
-	readonly sha: string;
-	readonly type?: string;
-	readonly message?: string;
-	readonly raw?: string;
-}
+export type CommitInfo = Readonly<{
+	sha: string;
+	type: string;
+	message: string;
+	raw: string;
+	indent?: boolean;
+}>
 
-export type CommitItemInfo = {
-	readonly message: string;
-	readonly commits: string;
-	readonly raw: string;
-}
+export type CommitItemInfo = Readonly<{
+	message: string;
+	commits: string;
+	raw: string;
+	indent: boolean;
+}>
 
-export type PullsInfo = {
-	readonly author: string;
-	readonly title: string;
-	readonly number: number;
-}
+export type PullsInfo = Readonly<{
+	author: string;
+	title: string;
+	number: number;
+}>

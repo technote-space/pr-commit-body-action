@@ -28,14 +28,30 @@ describe('getCommitMessages', () => {
 	testEnv(rootDir);
 	disableNetConnect(nock);
 
-	it('should get commit messages', async() => {
+	it('should get commit messages 1', async() => {
 		nock('https://api.github.com')
 			.persist()
 			.get('/repos/hello/world/pulls/123/commits')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list1'));
 
-		expect(await getCommitMessages([], [], octokit, context)).toEqual([
-			{sha: '6dcb09b5b57875f334f61aebed695e2e4193db5e'},
+		expect(await getCommitMessages([], [], octokit, context)).toEqual([]);
+	});
+
+	it('should get commit messages 2', async() => {
+		nock('https://api.github.com')
+			.persist()
+			.get('/repos/hello/world/pulls/123/commits')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'));
+
+		expect(await getCommitMessages(['fix'], [], octokit, context)).toEqual([
+			[
+				{
+					'message': 'Fix all the bugs',
+					'raw': 'fix: Fix all the bugs',
+					'sha': '1dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'type': 'fix',
+				},
+			],
 		]);
 	});
 });
@@ -53,19 +69,20 @@ describe('getCommitItems', () => {
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'));
 
 		expect(await getCommitItems(octokit, context)).toEqual([
-			{message: 'feat: add new features', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat: add new features'},
-			{message: 'feat: add new feature1 (#123)', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat: add new feature1 (#123)'},
-			{message: 'feat: add new feature2 (#234)', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat: add new feature2 (#234)'},
-			{message: 'feat: add new feature2', commits: '4dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat :  add new feature2'},
-			{message: 'fix: Fix all the bugs', commits: '1dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'fix: Fix all the bugs'},
-			{message: 'style: tweaks', commits: '7dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'style: tweaks'},
-			{message: 'refactor: refactoring', commits: '8dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'refactor: refactoring'},
+			{message: 'feat: add new features', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat: add new features', 'indent': false},
+			{message: 'feat: add new feature1 (#123)', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat: add new feature1 (#123)', 'indent': true},
+			{message: 'feat: add new feature2 (#234)', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat: add new feature2 (#234)', 'indent': true},
+			{message: 'chore: tweaks (#345, #456)', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'chore: tweaks (#345, #456)', 'indent': true},
+			{message: 'feat: add new feature3', commits: '4dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'feat :  add new feature3', 'indent': false},
+			{message: 'fix: Fix all the bugs', commits: '1dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'fix: Fix all the bugs', 'indent': false},
+			{message: 'style: tweaks', commits: '7dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'style: tweaks', 'indent': false},
+			{message: 'refactor: refactoring', commits: '8dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'refactor: refactoring', 'indent': false},
 			{
 				message: 'chore: tweaks',
 				commits: '2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...',
 				'raw': 'chore: tweaks',
+				'indent': false,
 			},
-			{message: 'chore: tweaks (#345, #456)', commits: '3dcb09b5b57875f334f61aebed695e2e4193db5e', 'raw': 'chore: tweaks (#345, #456)'},
 		]);
 	});
 });
