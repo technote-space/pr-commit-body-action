@@ -2,7 +2,7 @@ import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
 import { Logger } from '@technote-space/github-action-helper';
 import { getCommitItems } from './utils/commit';
-import { getBodyTemplate, getCommitTemplate, getMergeTemplate, replaceVariables, transform, addCloseAnnotation, getLinkIssueKeyword } from './utils/misc';
+import { getBodyTemplate, getCommitTemplate, getChildCommitTemplate, getMergeTemplate, replaceVariables, transform, addCloseAnnotation, getLinkIssueKeyword } from './utils/misc';
 import { getMergedPulls } from './utils/pulls';
 
 export const execute = async(logger: Logger, octokit: Octokit, context: Context): Promise<boolean> => {
@@ -25,11 +25,11 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 		{key: 'TITLE', value: addCloseAnnotation(pull.title, keyword)},
 		{key: 'NUMBER', value: String(pull.number)},
 		{key: 'AUTHOR', value: pull.author},
-	])).join('\n');
-	const commitTemplate = commits.filter(commit => !pullTitles.includes(commit.raw)).map(commit => replaceVariables(getCommitTemplate(), [
+	])).filter(item => item).join('\n');
+	const commitTemplate = commits.filter(commit => !pullTitles.includes(commit.raw)).map(commit => replaceVariables(commit.indent ? getChildCommitTemplate() : getCommitTemplate(), [
 		{key: 'MESSAGE', value: addCloseAnnotation(commit.message, keyword)},
 		{key: 'COMMITS', value: commit.commits},
-	])).join('\n');
+	])).filter(item => item).join('\n');
 	const template       = replaceVariables(getBodyTemplate(!(pulls.length + commits.length)), [
 		{key: 'MERGES', value: pullsTemplate},
 		{key: 'COMMITS', value: commitTemplate},
