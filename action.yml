@@ -11,11 +11,15 @@ inputs:
   CHANGE_TEMPLATE:
     description: Merge item template
     default: '* ${TITLE} (#${NUMBER}) @${AUTHOR}'
-    required: true
+    required: false
   COMMIT_TEMPLATE:
     description: Commit template
     default: '* ${MESSAGE} (${COMMITS})'
-    required: true
+    required: false
+  CHILD_COMMIT_TEMPLATE:
+    description: Child commit template
+    default: '  * ${MESSAGE}'
+    required: false
   MAX_COMMITS:
     description: Max number to show commits
     default: '5'
