@@ -161,7 +161,7 @@ describe('getLinkIssueKeyword', () => {
 	testEnv(rootDir);
 
 	it('should get default keyword 1', () => {
-		expect(getLinkIssueKeyword()).toBe('closes');
+		expect(getLinkIssueKeyword()).toBe('');
 	});
 
 	it('should get default keyword 2', () => {

@@ -45,7 +45,6 @@ inputs:
     required: false
   LINK_ISSUE_KEYWORD:
     description: A keyword linking a pull request to issue.
-    default: closes
     required: false
   FILTER_PR:
     description: Whether to filter pull requests by semantic message rule.

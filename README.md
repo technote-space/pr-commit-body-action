@@ -107,7 +107,7 @@ Message to show if there are no item.
 ### LINK_ISSUE_KEYWORD
 A keyword linking a pull request to issue.  
 If this options is set, this value is added to issue references (e.g. ` #234` => ` closes #123`)  
-default: `'closes'`
+default: `''`
 
 ### FILTER_PR
 Whether to filter pull requests by semantic message rule.  
