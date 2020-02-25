@@ -72,7 +72,7 @@ describe('execute', () => {
 				{
 					'message': 'feat: add new features',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
-					'raw': 'feat: add new features',
+					'raw': 'feat!: add new features',
 					'indent': false,
 				},
 				{
@@ -175,7 +175,7 @@ describe('execute', () => {
 				{
 					'message': 'feat: add new features',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
-					'raw': 'feat: add new features',
+					'raw': 'feat!: add new features',
 					'indent': false,
 				},
 				{
