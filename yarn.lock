@@ -611,7 +611,7 @@
     "@actions/core" "^1.2.2"
     "@actions/github" "^2.1.1"
 
-"@technote-space/github-action-helper@^1.2.0":
+"@technote-space/github-action-helper@^1.1.9", "@technote-space/github-action-helper@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-1.2.0.tgz#36890da8580951c0df6c598d46dc5e330742c64e"
   integrity sha512-p6Hxq2twXsBlkNxqEaSK6UdOQw7kXqWNQDRESiQK2OhbGvpDFfWLOTek2dbnKDjbITYAjXFgYVT6b154FvWnaw==
@@ -628,6 +628,35 @@
   dependencies:
     "@actions/github" "^2.1.1"
     js-yaml "^3.13.1"
+
+"@technote-space/github-action-version-helper@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@technote-space/github-action-version-helper/-/github-action-version-helper-0.1.1.tgz#fd6c22593206b3ab20482108a7fac594e4edb540"
+  integrity sha512-mMUnUD+XGzFsl017Cv9hYjhentwQnIMkyU6u7kgS97ek3TS2pGV9gwFXmW+mE8au+bcjuvlGPo3crIDVgPC+tA==
+  dependencies:
+    "@actions/github" "^2.1.1"
+    "@technote-space/github-action-helper" "^1.2.0"
+
+"@technote-space/release-github-actions-cli@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions-cli/-/release-github-actions-cli-1.1.0.tgz#b6b663540c4451d9660b4e370783b31f2185b9ae"
+  integrity sha512-9YgKZ9vt3pRXO2B7OOjWdiyuxKSsacAkEcT+4ZuflNxLvOo/5myLw02l7n6wOIFcJLRPu9ZV45X4L1mU4ZEbRQ==
+  dependencies:
+    "@technote-space/release-github-actions" "^3.0.3"
+    commander "^4.1.1"
+    cosmiconfig "^6.0.0"
+    js-yaml "^3.13.1"
+
+"@technote-space/release-github-actions@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions/-/release-github-actions-3.0.3.tgz#967021d98cb86fe5625700e772c50c46d6197c15"
+  integrity sha512-+emJOzmBJK4b9rxEv0655mc6L/MxV4eHAYyLWhtpBzklnVl+/JXbBLJANVZmWHTKm90RHTodKJl4WvF7gSi39A==
+  dependencies:
+    "@actions/core" "^1.2.2"
+    "@actions/github" "^2.1.1"
+    "@technote-space/filter-github-action" "^0.2.4"
+    "@technote-space/github-action-helper" "^1.1.9"
+    moment "^2.24.0"
 
 "@types/babel__core@^7.1.0":
   version "7.1.5"
@@ -1355,7 +1384,7 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^4.0.1:
+commander@^4.0.1, commander@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
@@ -2267,9 +2296,9 @@ has@^1.0.3:
     function-bind "^1.1.1"
 
 hosted-git-info@^2.1.4:
-  version "2.8.5"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.5.tgz#759cfcf2c4d156ade59b0b2dfabddc42a6b9c70c"
-  integrity sha512-kssjab8CvdXfcXMXVcvsXum4Hwdq9XGtRD3TteMEvEbq0LXyiNQr6AprqKqfeaDXze7SxWvRxdpwE6ku7ikLkg==
+  version "2.8.6"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.6.tgz#3a6e6d0324c5371fc8c7ba7175e1e5d14578724d"
+  integrity sha512-Kp6rShEsCHhF5dD3EWKdkgVA8ix90oSUJ0VY4g9goxxa0+f4lx63muTftn0mlJ/+8IESGWyKnP//V2D7S4ZbIQ==
 
 html-encoding-sniffer@^1.0.2:
   version "1.0.2"
@@ -3219,10 +3248,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^10.0.7:
-  version "10.0.7"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.0.7.tgz#d205f92d9359419a23bc6aa3b6f8546b1998da64"
-  integrity sha512-Byj0F4l7GYUpYYHEqyFH69NiI6ICTg0CeCKbhRorL+ickbzILKUlZLiyCkljZV02wnoh7yH7PmFyYm9PRNwk9g==
+lint-staged@^10.0.8:
+  version "10.0.8"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.0.8.tgz#0f7849cdc336061f25f5d4fcbcfa385701ff4739"
+  integrity sha512-Oa9eS4DJqvQMVdywXfEor6F4vP+21fPHF8LUXgBbVWUSWBddjqsvO6Bv1LwMChmgQZZqwUvgJSHlu8HFHAPZmA==
   dependencies:
     chalk "^3.0.0"
     commander "^4.0.1"
@@ -3554,6 +3583,11 @@ mkdirp@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.3.tgz#4cf2e30ad45959dddea53ad97d518b6c8205e1ea"
   integrity sha512-6uCP4Qc0sWsgMLy1EOqqS/3rjDHOEnsStVr/4vtAIK2Y5i2kA7lFFejYrpIyiN9w0pYf4ckeCYT9f1r1P9KX5g==
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 ms@2.0.0:
   version "2.0.0"

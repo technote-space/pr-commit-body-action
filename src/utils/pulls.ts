@@ -1,7 +1,8 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
 import { Utils } from '@technote-space/github-action-helper';
-import { getCommitTypes, getExcludeMessages, parseCommitMessage, isFilterPulls } from './misc';
+import { Misc } from '@technote-space/github-action-version-helper';
+import { getCommitTypes, getExcludeMessages, isFilterPulls } from './misc';
 import { PullsInfo } from '../types';
 
 export const getMergedPulls = async(octokit: Octokit, context: Context): Promise<Array<PullsInfo>> => {
@@ -13,7 +14,7 @@ export const getMergedPulls = async(octokit: Octokit, context: Context): Promise
 		base: Utils.getPrBranch(context),
 		state: 'closed',
 	}));
-	return (isFilter ? pulls.map(item => ({...item, ...parseCommitMessage(item.title, types, exclude)})).filter(item => item.type) : pulls)
+	return (isFilter ? pulls.map(item => ({...item, ...Misc.parseCommitMessage(item.title, types, exclude, [])})).filter(item => item.type) : pulls)
 		.filter(item => !!item.merged_at)
 		.map((item: Octokit.PullsListResponseItem): PullsInfo => ({
 			author: item.user.login,

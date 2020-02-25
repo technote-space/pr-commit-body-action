@@ -23,6 +23,3 @@ export const LINK_ISSUE_KEYWORDS = [
 	'resolves',
 	'resolved',
 ];
-// <type>(<scope>): <subject>
-// @see https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716#semantic-commit-messages
-export const SEMANTIC_MESSAGE = /^(.+?)!?\s*(\(.+?\)\s*)?:\s*(.+?)$/;
