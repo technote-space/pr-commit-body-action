@@ -48,7 +48,7 @@ export const getLinkIssueKeyword = (): string => {
 	return '';
 };
 export const parseCommitMessage  = (message: string, types: Array<string>, exclude: Array<string>): Partial<Omit<CommitInfo, 'sha'>> => {
-	const target  = message.trim().replace(/\r?\n|\r/g, ' ');
+	const target  = message.trim();
 	const matches = target.match(SEMANTIC_MESSAGE);
 	if (!matches || !types.includes(matches[1]) || exclude.includes(matches[3].toLowerCase())) {
 		return {};

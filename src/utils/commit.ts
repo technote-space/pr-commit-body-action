@@ -1,5 +1,6 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
+import { Utils } from '@technote-space/github-action-helper';
 import { getCommitTypes, getMaxCommitNumber, getExcludeMessages, parseCommitMessage } from './misc';
 import { CommitInfo, CommitItemInfo } from '../types';
 
@@ -13,7 +14,7 @@ export const getCommitMessages = async(types: Array<string>, exclude: Array<stri
 ))
 	.filter((item: Octokit.PullsListCommitsResponseItem): boolean => !MERGE_MESSAGE.test(item.commit.message))
 	.map(
-		(item: Octokit.PullsListCommitsResponseItem): Array<CommitInfo> => item.commit.message.split('\n')
+		(item: Octokit.PullsListCommitsResponseItem): Array<CommitInfo> => Utils.split(item.commit.message, /\r?\n|\r/)
 			.filter(message => message)
 			.map(message => ({
 				sha: item.sha,
