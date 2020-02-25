@@ -26,7 +26,7 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
 		{key: 'NUMBER', value: String(pull.number)},
 		{key: 'AUTHOR', value: pull.author},
 	])).filter(item => item).join('\n');
-	const commitTemplate = commits.filter(commit => !pullTitles.includes(commit.raw)).map(commit => replaceVariables(commit.indent ? getChildCommitTemplate() : getCommitTemplate(), [
+	const commitTemplate = commits.filter(commit => !pullTitles.includes(commit.original)).map(commit => replaceVariables(commit.isChild ? getChildCommitTemplate() : getCommitTemplate(), [
 		{key: 'MESSAGE', value: addCloseAnnotation(commit.message, keyword)},
 		{key: 'COMMITS', value: commit.commits},
 	])).filter(item => item).join('\n');
