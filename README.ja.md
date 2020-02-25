@@ -107,7 +107,7 @@ default: `'feat, fix, docs, style, refactor, chore'`
 ### LINK_ISSUE_KEYWORD
 プルリクエストを Issue に紐付けるためのキーワード  
 このオプションが設定されている場合、この値が Issue 参照に付与されます。 (例：` #234` => ` closes #123`)
-default: `'closes'`
+default: `''`
 
 ### FILTER_PR
 Semantic message のルールでプルリクエストをフィルタするかどうか  
