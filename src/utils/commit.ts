@@ -2,6 +2,7 @@ import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
 import { Utils } from '@technote-space/github-action-helper';
 import { Commit } from '@technote-space/github-action-version-helper';
+import { Commit as CommitType } from '@technote-space/github-action-version-helper/dist/types';
 import { getCommitTypes, getMaxCommitNumber, getExcludeMessages } from './misc';
 import { CommitItemInfo } from '../types';
 
@@ -11,6 +12,7 @@ export const getCommitItems = async(octokit: Octokit, context: Context): Promise
 	const maxNumber = getMaxCommitNumber();
 
 	return (await Commit.getCommits(types, exclude, [], octokit, context))
+		.map(item => item as Required<CommitType>)
 		.sort((item1, item2) => types.indexOf(item1.type) - types.indexOf(item2.type))
 		.reduce((acc, item) => {
 			const target = acc.find(element => element.type === item.type && element.message === item.message);
@@ -25,7 +27,7 @@ export const getCommitItems = async(octokit: Octokit, context: Context): Promise
 				});
 			}
 			return acc;
-		}, [] as Array<{ type: string; message: string; commits: Array<string>; original: string; children: Array<{ normalized: string; original: string }> }>)
+		}, [] as Array<{ type?: string; message?: string; commits: Array<string>; original: string; children: Array<{ normalized: string; original: string }> }>)
 		.reduce((acc, item) => {
 			acc.push({
 				...item,
