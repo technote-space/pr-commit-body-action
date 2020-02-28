@@ -29,7 +29,7 @@
     "@actions/github": "^2.1.1",
     "@technote-space/filter-github-action": "^0.2.4",
     "@technote-space/github-action-helper": "^1.2.0",
-    "@technote-space/github-action-version-helper": "^0.2.3",
+    "@technote-space/github-action-version-helper": "^0.2.4",
     "update-section": "^0.3.3"
   },
   "devDependencies": {
