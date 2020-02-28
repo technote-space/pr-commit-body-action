@@ -62,8 +62,18 @@ describe('execute', () => {
 				},
 				{
 					author: 'octocat',
-					title: 'feat: add new feature1 (#123, #234)',
+					title: 'chore: tweaks',
 					number: 1348,
+				},
+				{
+					author: 'octocat',
+					title: 'feat: add new feature1 (#123, #234)',
+					number: 1350,
+				},
+				{
+					author: 'octocat',
+					title: 'fix: typo',
+					number: 1351,
 				},
 			], null, '\t'),
 			'::endgroup::',
@@ -132,9 +142,9 @@ describe('execute', () => {
 			], null, '\t'),
 			'::endgroup::',
 			'::group::Templates',
-			'"* Amazing new feature (#456) (#1347) @octocat\\n* feat: add new feature1 (#123, #234) (#1348) @octocat"',
-			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (#123)\\n  * feat: add new feature2 (#234)\\n  * chore: tweaks (#345, #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
-			'"* Amazing new feature (#456) (#1347) @octocat\\n* feat: add new feature1 (#123, #234) (#1348) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (#123)\\n  * feat: add new feature2 (#234)\\n  * chore: tweaks (#345, #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* Amazing new feature (#456) (#1347) @octocat\\n* chore: tweaks (#1348) @octocat\\n* feat: add new feature1 (#123, #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat"',
+			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (#123)\\n  * feat: add new feature2 (#234)\\n  * chore: tweaks (#345, #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* Amazing new feature (#456) (#1347) @octocat\\n* chore: tweaks (#1348) @octocat\\n* feat: add new feature1 (#123, #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (#123)\\n  * feat: add new feature2 (#234)\\n  * chore: tweaks (#345, #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
 			'::endgroup::',
 			'> There is no diff.',
 		]);
@@ -143,6 +153,7 @@ describe('execute', () => {
 	it('should return true 2', async() => {
 		process.env.INPUT_MAX_COMMITS        = '3';
 		process.env.INPUT_LINK_ISSUE_KEYWORD = 'fix';
+		process.env.INPUT_FILTER_PR          = 'true';
 		const mockStdout                     = spyOnStdout();
 		nock('https://api.github.com')
 			.persist()
@@ -160,12 +171,17 @@ describe('execute', () => {
 			JSON.stringify([
 				{
 					author: 'octocat',
-					title: 'Amazing new feature (#456)',
-					number: 1347,
+					title: 'feat: add new feature1 (#123, #234)',
+					number: 1350,
 				},
 				{
 					author: 'octocat',
-					title: 'feat: add new feature1 (#123, #234)',
+					title: 'fix: typo',
+					number: 1351,
+				},
+				{
+					author: 'octocat',
+					title: 'chore: tweaks',
 					number: 1348,
 				},
 			], null, '\t'),
@@ -235,9 +251,9 @@ describe('execute', () => {
 			], null, '\t'),
 			'::endgroup::',
 			'::group::Templates',
-			'"* Amazing new feature (fix #456) (#1347) @octocat\\n* feat: add new feature1 (fix #123, fix #234) (#1348) @octocat"',
-			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (fix #123)\\n  * feat: add new feature2 (fix #234)\\n  * chore: tweaks (fix #345, fix #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
-			'"* Amazing new feature (fix #456) (#1347) @octocat\\n* feat: add new feature1 (fix #123, fix #234) (#1348) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (fix #123)\\n  * feat: add new feature2 (fix #234)\\n  * chore: tweaks (fix #345, fix #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: tweaks (2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* feat: add new feature1 (fix #123, fix #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat\\n* chore: tweaks (#1348) @octocat"',
+			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (fix #123)\\n  * feat: add new feature2 (fix #234)\\n  * chore: tweaks (fix #345, fix #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* feat: add new feature1 (fix #123, fix #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat\\n* chore: tweaks (#1348) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (fix #123)\\n  * feat: add new feature2 (fix #234)\\n  * chore: tweaks (fix #345, fix #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
 			'::endgroup::',
 			'> Updated.',
 		]);

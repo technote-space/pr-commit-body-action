@@ -14,7 +14,14 @@ export const getMergedPulls = async(octokit: Octokit, context: Context): Promise
 		base: Utils.getPrBranch(context),
 		state: 'closed',
 	}));
-	return (isFilter ? pulls.map(item => ({...item, ...Misc.parseCommitMessage(item.title, types, exclude, [])})).filter(item => item.type) : pulls)
+	return (
+		isFilter ?
+			pulls
+				.map(item => ({...item, ...Misc.parseCommitMessage(item.title, types, exclude, [])}))
+				.filter(item => item.type)
+				.sort((item1, item2) => types.indexOf(item1.type) - types.indexOf(item2.type)) :
+			pulls
+	)
 		.filter(item => !!item.merged_at)
 		.map((item: Octokit.PullsListResponseItem): PullsInfo => ({
 			author: item.user.login,
