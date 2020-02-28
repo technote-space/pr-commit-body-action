@@ -3,6 +3,7 @@ export type CommitItemInfo = Readonly<{
 	commits: string;
 	original: string;
 	isChild: boolean;
+	isNotes: boolean;
 }>
 
 export type PullsInfo = Readonly<{

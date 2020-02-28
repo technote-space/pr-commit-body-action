@@ -20,6 +20,10 @@ inputs:
     description: Child commit template
     default: '  * ${MESSAGE}'
     required: false
+  BREAKING_CHANGE_TEMPLATE:
+    description: Breaking change template
+    default: '* ${MESSAGE}'
+    required: false
   MAX_COMMITS:
     description: Max number to show commits
     default: '5'
@@ -29,6 +33,7 @@ inputs:
     default: |
       ${MERGES}
       ${COMMITS}
+      ${BREAKING_CHANGES}
     required: true
   COMMIT_TYPES:
     description: Types
@@ -36,6 +41,10 @@ inputs:
     required: true
   EXCLUDE_MESSAGES:
     description: Exclude messages
+    required: false
+  BREAKING_CHANGE_NOTES:
+    description: Breaking change notes
+    default: BREAKING CHANGE
     required: false
   TITLE:
     description: Title
