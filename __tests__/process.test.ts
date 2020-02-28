@@ -84,77 +84,89 @@ describe('execute', () => {
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'feat!: add new features',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'feat: add new feature1 (#123)',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'feat: add new feature1 (#123)',
 					'isChild': true,
+					'isNotes': false,
 				},
 				{
 					'message': 'feat: add new feature2 (#234)',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'feat: add new feature2 (#234)',
 					'isChild': true,
+					'isNotes': false,
 				},
 				{
-					'message': 'chore: tweaks (#345, #456)',
+					'message': 'BREAKING CHANGE: changed',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
-					'original': 'chore: tweaks (#345, #456)',
-					'isChild': true,
+					'original': 'BREAKING CHANGE: changed',
+					'isChild': false,
+					'isNotes': true,
 				},
 				{
 					'message': 'feat: add new feature3',
 					'commits': '4dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'feat :  add new feature3',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'fix: Fix all the bugs',
 					'commits': '1dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'fix: Fix all the bugs',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'style: tweaks',
 					'commits': '7dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'style: tweaks',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'refactor: refactoring',
 					'commits': '8dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'refactor: refactoring',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'chore: tweaks',
 					'commits': '2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, 0dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'chore: tweaks',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'chore: trigger workflow',
 					'commits': '000b09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'chore: trigger workflow',
 					'isChild': false,
+					'isNotes': false,
 				},
 			], null, '\t'),
 			'::endgroup::',
 			'::group::Templates',
 			'"* Amazing new feature (#456) (#1347) @octocat\\n* chore: tweaks (#1348) @octocat\\n* feat: add new feature1 (#123, #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat"',
-			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (#123)\\n  * feat: add new feature2 (#234)\\n  * chore: tweaks (#345, #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
-			'"* Amazing new feature (#456) (#1347) @octocat\\n* chore: tweaks (#1348) @octocat\\n* feat: add new feature1 (#123, #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (#123)\\n  * feat: add new feature2 (#234)\\n  * chore: tweaks (#345, #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (#123)\\n  * feat: add new feature2 (#234)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* BREAKING CHANGE: changed"',
+			'"* Amazing new feature (#456) (#1347) @octocat\\n* chore: tweaks (#1348) @octocat\\n* feat: add new feature1 (#123, #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (#123)\\n  * feat: add new feature2 (#234)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)\\n* BREAKING CHANGE: changed"',
 			'::endgroup::',
 			'> There is no diff.',
 		]);
 	});
 
 	it('should return true 2', async() => {
-		process.env.INPUT_MAX_COMMITS        = '3';
-		process.env.INPUT_LINK_ISSUE_KEYWORD = 'fix';
-		process.env.INPUT_FILTER_PR          = 'true';
-		const mockStdout                     = spyOnStdout();
+		process.env.INPUT_MAX_COMMITS           = '3';
+		process.env.INPUT_LINK_ISSUE_KEYWORD    = 'fix';
+		process.env.INPUT_FILTER_PR             = 'true';
+		process.env.INPUT_BREAKING_CHANGE_NOTES = '';
+		const mockStdout                        = spyOnStdout();
 		nock('https://api.github.com')
 			.persist()
 			.get('/repos/hello/world/pulls/123/commits')
@@ -193,67 +205,71 @@ describe('execute', () => {
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'feat!: add new features',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'feat: add new feature1 (#123)',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'feat: add new feature1 (#123)',
 					'isChild': true,
+					'isNotes': false,
 				},
 				{
 					'message': 'feat: add new feature2 (#234)',
 					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'feat: add new feature2 (#234)',
 					'isChild': true,
-				},
-				{
-					'message': 'chore: tweaks (#345, #456)',
-					'commits': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
-					'original': 'chore: tweaks (#345, #456)',
-					'isChild': true,
+					'isNotes': false,
 				},
 				{
 					'message': 'feat: add new feature3',
 					'commits': '4dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'feat :  add new feature3',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'fix: Fix all the bugs',
 					'commits': '1dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'fix: Fix all the bugs',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'style: tweaks',
 					'commits': '7dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'style: tweaks',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'refactor: refactoring',
 					'commits': '8dcb09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'refactor: refactoring',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'chore: tweaks',
 					'commits': '2dcb09b5b57875f334f61aebed695e2e4193db5e, 5dcb09b5b57875f334f61aebed695e2e4193db5e, 9dcb09b5b57875f334f61aebed695e2e4193db5e, ...',
 					'original': 'chore: tweaks',
 					'isChild': false,
+					'isNotes': false,
 				},
 				{
 					'message': 'chore: trigger workflow',
 					'commits': '000b09b5b57875f334f61aebed695e2e4193db5e',
 					'original': 'chore: trigger workflow',
 					'isChild': false,
+					'isNotes': false,
 				},
 			], null, '\t'),
 			'::endgroup::',
 			'::group::Templates',
 			'"* feat: add new feature1 (fix #123, fix #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat\\n* chore: tweaks (#1348) @octocat"',
-			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (fix #123)\\n  * feat: add new feature2 (fix #234)\\n  * chore: tweaks (fix #345, fix #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
-			'"* feat: add new feature1 (fix #123, fix #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat\\n* chore: tweaks (#1348) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (fix #123)\\n  * feat: add new feature2 (fix #234)\\n  * chore: tweaks (fix #345, fix #456)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'"* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (fix #123)\\n  * feat: add new feature2 (fix #234)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)"',
+			'""',
+			'"* feat: add new feature1 (fix #123, fix #234) (#1350) @octocat\\n* fix: typo (#1351) @octocat\\n* chore: tweaks (#1348) @octocat\\n* feat: add new features (3dcb09b5b57875f334f61aebed695e2e4193db5e)\\n  * feat: add new feature1 (fix #123)\\n  * feat: add new feature2 (fix #234)\\n* feat: add new feature3 (4dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* fix: Fix all the bugs (1dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* style: tweaks (7dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* refactor: refactoring (8dcb09b5b57875f334f61aebed695e2e4193db5e)\\n* chore: trigger workflow (000b09b5b57875f334f61aebed695e2e4193db5e)\\n"',
 			'::endgroup::',
 			'> Updated.',
 		]);
