@@ -64,7 +64,7 @@ describe('getBodyTemplate', () => {
 	});
 
 	it('should get default body template', () => {
-		expect(getBodyTemplate(false)).toBe('${MERGES}\n${COMMITS}');
+		expect(getBodyTemplate(false)).toBe('${MERGES}\n${COMMITS}\n${BREAKING_CHANGES}');
 	});
 
 	it('should return empty', () => {
@@ -78,7 +78,7 @@ describe('getBodyTemplate', () => {
 
 	it('should get body template with title', () => {
 		process.env.INPUT_TITLE = '## Changed';
-		expect(getBodyTemplate(false)).toBe('## Changed\n\n${MERGES}\n${COMMITS}');
+		expect(getBodyTemplate(false)).toBe('## Changed\n\n${MERGES}\n${COMMITS}\n${BREAKING_CHANGES}');
 	});
 
 	it('should get body template with title, no item', () => {
