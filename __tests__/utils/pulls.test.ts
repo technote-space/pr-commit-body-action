@@ -35,7 +35,9 @@ describe('getMergedPulls', () => {
 
 		expect(await getMergedPulls(octokit, context)).toEqual([
 			{author: 'octocat', number: 1347, title: 'Amazing new feature (#456)'},
-			{author: 'octocat', number: 1348, title: 'feat: add new feature1 (#123, #234)'},
+			{author: 'octocat', number: 1348, title: 'chore: tweaks'},
+			{author: 'octocat', number: 1350, title: 'feat: add new feature1 (#123, #234)'},
+			{author: 'octocat', number: 1351, title: 'fix: typo'},
 		]);
 	});
 
@@ -47,7 +49,9 @@ describe('getMergedPulls', () => {
 			.reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'));
 
 		expect(await getMergedPulls(octokit, context)).toEqual([
-			{author: 'octocat', number: 1348, title: 'feat: add new feature1 (#123, #234)'},
+			{author: 'octocat', number: 1350, title: 'feat: add new feature1 (#123, #234)'},
+			{author: 'octocat', number: 1351, title: 'fix: typo'},
+			{author: 'octocat', number: 1348, title: 'chore: tweaks'},
 		]);
 	});
 });
