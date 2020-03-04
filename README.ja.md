@@ -69,47 +69,19 @@
     ```
 
 ## Options
-### CHANGE_TEMPLATE
-マージされたプルリク用テンプレート  
-default: `'* ${TITLE} (#${NUMBER}) @${AUTHOR}'`  
-
-### COMMIT_TEMPLATE
-コミット用テンプレート  
-default: `'* ${MESSAGE} (${COMMITS})'`  
-
-### MAX_COMMITS
-最大コミット表示数  
-default: `'5'`  
-
-### TEMPLATE
-テンプレート  
-default:
-```
-${MERGES}
-${COMMITS}
-```  
-
-### COMMIT_TYPES
-コミットタイプ  
-default: `'feat, fix, docs, style, refactor, chore'`  
-
-### EXCLUDE_MESSAGES
-除外メッセージ  
-
-### TITLE
-タイトル  
-
-### NO_ITEMS
-アイテムがない時に表示するメッセージ  
-
-### LINK_ISSUE_KEYWORD
-プルリクエストを Issue に紐付けるためのキーワード  
-このオプションが設定されている場合、この値が Issue 参照に付与されます。 (例：` #234` => ` closes #123`)
-default: `''`
-
-### FILTER_PR
-Semantic message のルールでプルリクエストをフィルタするかどうか  
-default: `'false'`
+| name | description | default | required | e.g. |
+|:---:|:---|:---:|:---:|:---:|
+|CHANGE_TEMPLATE|マージされたプルリク用テンプレート|`* ${TITLE} (#${NUMBER}) @${AUTHOR}`| |`- ${TITLE}`|
+|COMMIT_TEMPLATE|コミット用テンプレート|`* ${MESSAGE} (${COMMITS})`| |`- ${MESSAGE}`|
+|MAX_COMMITS|最大コミット表示数|`5`| |`3`|
+|TEMPLATE|テンプレート|`${MERGES}`<br>`${COMMITS}`<br>`${BREAKING_CHANGES}`|true|`${MERGES}`|
+|COMMIT_TYPES|コミットタイプ|`feat, fix, build, ci, docs, style, perf, refactor, test, chore`|true|`feat, fix, chore`|
+|EXCLUDE_MESSAGES|除外メッセージ| | |`tweaks`|
+|TITLE|タイトル| | |`Changes:`|
+|NO_ITEMS|アイテムがない時に表示するメッセージ| | |`- no item`|
+|LINK_ISSUE_KEYWORD|プルリクエストを Issue に紐付けるためのキーワード<br>このオプションが設定されている場合、この値が Issue 参照に付与されます。<br>(例：` #234` => ` closes #123`)| | |`closes`|
+|FILTER_PR|Semantic message のルールでプルリクエストをフィルタするかどうか|`false`| |`true`|
+|GITHUB_TOKEN|アクセストークン|`${{github.token}}`|true|`${{secrets.ACCESS_TOKEN}}`|
 
 ## Action イベント詳細
 ### 対象イベント
