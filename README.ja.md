@@ -61,8 +61,6 @@
         steps:
           - name: Pull Request Body
             uses: technote-space/pr-commit-body-action@v1
-            with:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     ```
 1. 以下のコメントを含むプルリクエストを作成
     ```markdown
