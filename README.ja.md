@@ -20,16 +20,6 @@
   - [自動生成された本文](#%E8%87%AA%E5%8B%95%E7%94%9F%E6%88%90%E3%81%95%E3%82%8C%E3%81%9F%E6%9C%AC%E6%96%87)
 - [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
 - [Options](#options)
-  - [CHANGE_TEMPLATE](#change_template)
-  - [COMMIT_TEMPLATE](#commit_template)
-  - [MAX_COMMITS](#max_commits)
-  - [TEMPLATE](#template)
-  - [COMMIT_TYPES](#commit_types)
-  - [EXCLUDE_MESSAGES](#exclude_messages)
-  - [TITLE](#title)
-  - [NO_ITEMS](#no_items)
-  - [LINK_ISSUE_KEYWORD](#link_issue_keyword)
-  - [FILTER_PR](#filter_pr)
 - [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
   - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
 - [Author](#author)
@@ -61,8 +51,6 @@
         steps:
           - name: Pull Request Body
             uses: technote-space/pr-commit-body-action@v1
-            with:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     ```
 1. 以下のコメントを含むプルリクエストを作成
     ```markdown
@@ -71,47 +59,19 @@
     ```
 
 ## Options
-### CHANGE_TEMPLATE
-マージされたプルリク用テンプレート  
-default: `'* ${TITLE} (#${NUMBER}) @${AUTHOR}'`  
-
-### COMMIT_TEMPLATE
-コミット用テンプレート  
-default: `'* ${MESSAGE} (${COMMITS})'`  
-
-### MAX_COMMITS
-最大コミット表示数  
-default: `'5'`  
-
-### TEMPLATE
-テンプレート  
-default:
-```
-${MERGES}
-${COMMITS}
-```  
-
-### COMMIT_TYPES
-コミットタイプ  
-default: `'feat, fix, docs, style, refactor, chore'`  
-
-### EXCLUDE_MESSAGES
-除外メッセージ  
-
-### TITLE
-タイトル  
-
-### NO_ITEMS
-アイテムがない時に表示するメッセージ  
-
-### LINK_ISSUE_KEYWORD
-プルリクエストを Issue に紐付けるためのキーワード  
-このオプションが設定されている場合、この値が Issue 参照に付与されます。 (例：` #234` => ` closes #123`)
-default: `''`
-
-### FILTER_PR
-Semantic message のルールでプルリクエストをフィルタするかどうか  
-default: `'false'`
+| name | description | default | required | e.g. |
+|:---:|:---|:---:|:---:|:---:|
+|CHANGE_TEMPLATE|マージされたプルリク用テンプレート|`* ${TITLE} (#${NUMBER}) @${AUTHOR}`| |`- ${TITLE}`|
+|COMMIT_TEMPLATE|コミット用テンプレート|`* ${MESSAGE} (${COMMITS})`| |`- ${MESSAGE}`|
+|MAX_COMMITS|最大コミット表示数|`5`| |`3`|
+|TEMPLATE|テンプレート|`${MERGES}`<br>`${COMMITS}`<br>`${BREAKING_CHANGES}`|true|`${MERGES}`|
+|COMMIT_TYPES|コミットタイプ|`feat, fix, build, ci, docs, style, perf, refactor, test, chore`|true|`feat, fix, chore`|
+|EXCLUDE_MESSAGES|除外メッセージ| | |`tweaks`|
+|TITLE|タイトル| | |`Changes:`|
+|NO_ITEMS|アイテムがない時に表示するメッセージ| | |`- no item`|
+|LINK_ISSUE_KEYWORD|プルリクエストを Issue に紐付けるためのキーワード<br>このオプションが設定されている場合、この値が Issue 参照に付与されます。<br>(例：` #234` => ` closes #123`)| | |`closes`|
+|FILTER_PR|Semantic message のルールでプルリクエストをフィルタするかどうか|`false`| |`true`|
+|GITHUB_TOKEN|アクセストークン|`${{github.token}}`|true|`${{secrets.ACCESS_TOKEN}}`|
 
 ## Action イベント詳細
 ### 対象イベント
