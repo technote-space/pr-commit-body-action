@@ -1,0 +1,69 @@
+name: PR Commit Body Action
+
+description: GitHub action to add commit history to PR body.
+
+author: technote-space
+
+inputs:
+  GITHUB_TOKEN:
+    description: Secret GitHub API token to use for making API requests.
+    default: ${{ github.token }}
+    required: true
+  CHANGE_TEMPLATE:
+    description: Merge item template
+    default: '* ${TITLE} (#${NUMBER}) @${AUTHOR}'
+    required: false
+  COMMIT_TEMPLATE:
+    description: Commit template
+    default: '* ${MESSAGE} (${COMMITS})'
+    required: false
+  CHILD_COMMIT_TEMPLATE:
+    description: Child commit template
+    default: '  * ${MESSAGE}'
+    required: false
+  BREAKING_CHANGE_TEMPLATE:
+    description: Breaking change template
+    default: '* ${MESSAGE}'
+    required: false
+  MAX_COMMITS:
+    description: Max number to show commits
+    default: '5'
+    required: false
+  TEMPLATE:
+    description: Template
+    default: |
+      ${MERGES}
+      ${COMMITS}
+      ${BREAKING_CHANGES}
+    required: true
+  COMMIT_TYPES:
+    description: Types
+    default: feat, fix, build, ci, docs, style, perf, refactor, test, chore
+    required: true
+  EXCLUDE_MESSAGES:
+    description: Exclude messages
+    required: false
+  BREAKING_CHANGE_NOTES:
+    description: Breaking change notes
+    default: BREAKING CHANGE
+    required: false
+  TITLE:
+    description: Title
+    required: false
+  NO_ITEMS:
+    description: Message to show if there are no items
+    required: false
+  LINK_ISSUE_KEYWORD:
+    description: A keyword linking a pull request to issue.
+    required: false
+  FILTER_PR:
+    description: Whether to filter pull requests by semantic message rule.
+    required: false
+
+branding:
+  icon: 'file-text'
+  color: 'yellow'
+
+runs:
+  using: node12
+  main: lib/main.js
