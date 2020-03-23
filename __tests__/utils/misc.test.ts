@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { testEnv } from '@technote-space/github-action-test-helper';
 import { resolve } from 'path';
-import { replaceVariables, transform } from '../../src/utils/misc';
+import { transform } from '../../src/utils/misc';
 import {
 	getCommitTypes,
 	getBodyTemplate,
@@ -14,21 +14,6 @@ import {
 } from '../../src/utils/misc';
 
 const rootDir = resolve(__dirname, '../..');
-
-describe('replaceVariables', () => {
-	it('should replace variables', () => {
-		expect(replaceVariables('', [])).toBe('');
-		expect(replaceVariables('replace test: ${ABC}', [])).toBe('replace test: ${ABC}');
-		expect(replaceVariables('replace test: ${ABC}', [
-			{key: 'ABC', value: 'replaced'},
-		])).toBe('replace test: replaced');
-		expect(replaceVariables('replace test: ${ABC}\nmultiple: ${ABC}\nanother: ${XYZ}', [
-			{key: 'ABC', value: 'replaced1'},
-			{key: 'XYZ', value: 'replaced2'},
-			{key: 'TEST', value: 'replaced3'},
-		])).toBe('replace test: replaced1\nmultiple: replaced1\nanother: replaced2');
-	});
-});
 
 describe('transform', () => {
 	it('should transform content', () => {
