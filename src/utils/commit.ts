@@ -1,5 +1,5 @@
 import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@octokit/rest';
+import {Octokit} from '@technote-space/github-action-helper/dist/types';
 import {Utils} from '@technote-space/github-action-helper';
 import {Commit} from '@technote-space/github-action-version-helper';
 import {Commit as CommitType} from '@technote-space/github-action-version-helper/dist/types';
