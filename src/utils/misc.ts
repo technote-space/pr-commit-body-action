@@ -27,7 +27,13 @@ export const getBreakingChangeTemplate = (): string => getRawInput('BREAKING_CHA
 export const getMaxCommitNumber        = (): number => /^\d+$/.test(getInput('MAX_COMMITS')) ? Number(getInput('MAX_COMMITS')) : 5; // eslint-disable-line no-magic-numbers
 export const getExcludeMessages        = (): Array<string> => Utils.getArrayInput('EXCLUDE_MESSAGES').map(item => item.toLowerCase());
 export const getBreakingChangeNotes    = (): Array<string> => Utils.getArrayInput('BREAKING_CHANGE_NOTES');
-export const addCloseAnnotation        = (message: string, keyword: string): string => keyword ? message.replace(/(#\d+)/g, `${keyword} $1`) : message;
+export const addCloseAnnotation        = (message: string, keyword: string): string => {
+  if (!keyword) {
+    return message;
+  }
+
+  return message.replace(new RegExp(`${LINK_ISSUE_KEYWORDS.map(item => `(?<!${Utils.escapeRegExp(item)}\\s)`).join('')}(#\\d+)`, 'g'), `${keyword} $&`);
+};
 
 const matchesStart               = (line: string): boolean => MATCH_START.test(line);
 const matchesEnd                 = (line: string): boolean => MATCH_END.test(line);

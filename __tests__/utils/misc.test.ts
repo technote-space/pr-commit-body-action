@@ -133,12 +133,20 @@ describe('getExcludeMessages', () => {
 describe('addCloseAnnotation', () => {
   testEnv(rootDir);
 
-  it('should add close annotation', () => {
+  it('should add close annotation 1', () => {
     expect(addCloseAnnotation('test message #123', 'closes')).toBe('test message closes #123');
   });
 
-  it('should not add close annotation', () => {
+  it('should add close annotation 2', () => {
+    expect(addCloseAnnotation('test message (#123)', 'closes')).toBe('test message (closes #123)');
+  });
+
+  it('should not add close annotation 1', () => {
     expect(addCloseAnnotation('test message #123', '')).toBe('test message #123');
+  });
+
+  it('should not add close annotation 2', () => {
+    expect(addCloseAnnotation('test (closes #123)', 'fix')).toBe('test (closes #123)');
   });
 });
 
