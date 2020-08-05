@@ -77,7 +77,7 @@
 ### 対象イベント
 | eventName | action |
 |:---:|:---:|
-|pull_request|opened, reopened, synchronize|
+|pull_request, pull_request_target|opened, reopened, synchronize|
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
