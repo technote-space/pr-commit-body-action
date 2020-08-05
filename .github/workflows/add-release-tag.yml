@@ -1,7 +1,8 @@
 on:
   pull_request:
     branches:
-      - $default-branch
+      - master
+      - main
       - develop/v*
     types: [closed]
 
