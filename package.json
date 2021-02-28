@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/pr-commit-body-action",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "GitHub action to add commit history to PR body.",
   "keywords": [
     "github",
