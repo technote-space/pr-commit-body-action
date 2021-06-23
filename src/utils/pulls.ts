@@ -2,8 +2,6 @@ import {Context} from '@actions/github/lib/context';
 import {Octokit} from '@technote-space/github-action-helper/dist/types';
 import {Utils} from '@technote-space/github-action-helper';
 import {Misc} from '@technote-space/github-action-version-helper';
-import {PaginateInterface} from '@octokit/plugin-paginate-rest';
-import {RestEndpointMethods} from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/method-types';
 import {components} from '@octokit/openapi-types';
 import {getCommitTypes, getExcludeMessages, isFilterPulls} from './misc';
 import {PullsInfo} from '../types';
@@ -14,8 +12,8 @@ export const getMergedPulls = async(octokit: Octokit, context: Context): Promise
   const types                               = getCommitTypes();
   const exclude                             = getExcludeMessages();
   const isFilter                            = isFilterPulls();
-  const pulls: Array<PullsListResponseData> = await (octokit.paginate as PaginateInterface)(
-    (octokit as RestEndpointMethods).pulls.list,
+  const pulls: Array<PullsListResponseData> = await octokit.paginate(
+    octokit.rest.pulls.list,
     {
       ...context.repo,
       base: Utils.getPrBranch(context),

@@ -63,7 +63,7 @@ export const execute = async(logger: Logger, octokit: Octokit, context: Context)
     return true;
   }
 
-  await octokit.pulls.update({
+  await octokit.rest.pulls.update({
     ...context.repo,
     'pull_number': context.payload.number,
     body: newBody,
