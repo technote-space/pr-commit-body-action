@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/github-action-version-helper",
-  "version": "0.5.19",
+  "version": "0.5.20",
   "description": "Version helper for GitHub Actions.",
   "keywords": [
     "github",
@@ -48,7 +48,7 @@
     "@octokit/types": "^6.25.0",
     "@technote-space/github-action-test-helper": "^0.7.25",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.5",
+    "@types/node": "^16.7.6",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
     "eslint": "^7.32.0",
