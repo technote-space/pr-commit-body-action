@@ -1,8 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
-import {testEnv} from '@technote-space/github-action-test-helper';
-import {resolve} from 'path';
-import {transform} from '../../src/utils/misc';
+import { testEnv } from '@technote-space/github-action-test-helper';
+import { resolve } from 'path';
 import {
   getCommitTypes,
   getBodyTemplate,
@@ -12,7 +11,8 @@ import {
   getExcludeMessages,
   addCloseAnnotation,
   getLinkIssueKeyword,
-} from '../../src/utils/misc';
+  transform,
+} from './misc';
 
 const rootDir = resolve(__dirname, '../..');
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 import nock from 'nock';
-import {resolve} from 'path';
+import { resolve } from 'path';
 import {
   testEnv,
   generateContext,
@@ -9,12 +9,12 @@ import {
   getApiFixture,
   getOctokit,
 } from '@technote-space/github-action-test-helper';
-import {getMergedPulls} from '../../src/utils/pulls';
+import { getMergedPulls } from './pulls';
 
 const rootDir        = resolve(__dirname, '../..');
 const fixtureRootDir = resolve(__dirname, '..', 'fixtures');
 const octokit        = getOctokit();
-const context        = generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge'}, {
+const context        = generateContext({ owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge' }, {
   payload: {
     'pull_request': {
       head: {
@@ -35,10 +35,10 @@ describe('getMergedPulls', () => {
       .reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'));
 
     expect(await getMergedPulls(octokit, context)).toEqual([
-      {author: 'octocat', number: 1347, title: 'Amazing new feature (#456)'},
-      {author: 'octocat', number: 1348, title: 'chore: tweaks'},
-      {author: 'octocat', number: 1350, title: 'feat: add new feature1 (#123, #234)'},
-      {author: 'octocat', number: 1351, title: 'fix: typo'},
+      { author: 'octocat', number: 1347, title: 'Amazing new feature (#456)' },
+      { author: 'octocat', number: 1348, title: 'chore: tweaks' },
+      { author: 'octocat', number: 1350, title: 'feat: add new feature1 (#123, #234)' },
+      { author: 'octocat', number: 1351, title: 'fix: typo' },
     ]);
   });
 
@@ -50,9 +50,9 @@ describe('getMergedPulls', () => {
       .reply(200, () => getApiFixture(fixtureRootDir, 'pulls.list'));
 
     expect(await getMergedPulls(octokit, context)).toEqual([
-      {author: 'octocat', number: 1350, title: 'feat: add new feature1 (#123, #234)'},
-      {author: 'octocat', number: 1351, title: 'fix: typo'},
-      {author: 'octocat', number: 1348, title: 'chore: tweaks'},
+      { author: 'octocat', number: 1350, title: 'feat: add new feature1 (#123, #234)' },
+      { author: 'octocat', number: 1351, title: 'fix: typo' },
+      { author: 'octocat', number: 1348, title: 'chore: tweaks' },
     ]);
   });
 });

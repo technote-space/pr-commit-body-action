@@ -1,13 +1,13 @@
-import {getInput} from '@actions/core';
-import {Utils} from '@technote-space/github-action-helper';
+import { getInput } from '@actions/core';
+import { Utils } from '@technote-space/github-action-helper';
 import updateSection from 'update-section';
-import {START, END, MATCH_START, MATCH_END, LINK_ISSUE_KEYWORDS} from '../constant';
+import { START, END, MATCH_START, MATCH_END, LINK_ISSUE_KEYWORDS } from '../constant';
 
 const getRawInput                      = (name: string): string => process.env[`INPUT_${name.replace(/ /g, '_').toUpperCase()}`] || '';
 export const getCommitTypes            = (): Array<string> => Utils.getArrayInput('COMMIT_TYPES', true);
 export const getTitle                  = (): string => getRawInput('TITLE');
 export const getNoItems                = (): string => getRawInput('NO_ITEMS');
-export const getTemplate               = (isEmpty: boolean): string => isEmpty ? getNoItems() : getInput('TEMPLATE', {required: true});
+export const getTemplate               = (isEmpty: boolean): string => isEmpty ? getNoItems() : getInput('TEMPLATE', { required: true });
 export const getBodyTemplate           = (isEmpty: boolean): string => {
   const template = getTemplate(isEmpty);
   if ('' === template) {

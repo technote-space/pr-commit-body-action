@@ -1,10 +1,10 @@
-import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {Utils} from '@technote-space/github-action-helper';
-import {Misc} from '@technote-space/github-action-version-helper';
-import {components} from '@octokit/openapi-types';
-import {getCommitTypes, getExcludeMessages, isFilterPulls} from './misc';
-import {PullsInfo} from '../types';
+import { Context } from '@actions/github/lib/context';
+import { Octokit } from '@technote-space/github-action-helper/dist/types';
+import { Utils } from '@technote-space/github-action-helper';
+import { Misc } from '@technote-space/github-action-version-helper';
+import { components } from '@octokit/openapi-types';
+import { getCommitTypes, getExcludeMessages, isFilterPulls } from './misc';
+import { PullsInfo } from '../types';
 
 type PullsListResponseData = components['schemas']['pull-request-simple'];
 
@@ -25,7 +25,7 @@ export const getMergedPulls = async(octokit: Octokit, context: Context): Promise
   return (
     isFilter ?
       pulls
-        .map((item: PullsListResponseData): PullsItem => ({...item, ...Misc.parseCommitMessage(item.title, types, exclude, [])}))
+        .map((item: PullsListResponseData): PullsItem => ({ ...item, ...Misc.parseCommitMessage(item.title, types, exclude, []) }))
         .filter((item): item is Required<PullsItem> => typeof item.type === 'string')
         .sort((item1, item2) => types.indexOf(item1.type) - types.indexOf(item2.type)) :
       pulls
