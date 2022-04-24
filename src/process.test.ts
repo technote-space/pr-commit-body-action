@@ -1,8 +1,6 @@
 /* eslint-disable no-magic-numbers */
-import { beforeEach, describe, expect, it } from 'vitest';
-import { Context } from '@actions/github/lib/context';
-import nock from 'nock';
 import { resolve } from 'path';
+import { Context } from '@actions/github/lib/context';
 import { Logger } from '@technote-space/github-action-log-helper';
 import {
   testEnv,
@@ -13,6 +11,8 @@ import {
   getOctokit,
   stdoutCalledWith,
 } from '@technote-space/github-action-test-helper';
+import nock from 'nock';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { execute } from './process';
 
 const rootDir        = resolve(__dirname, '..');

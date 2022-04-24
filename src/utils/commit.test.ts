@@ -1,6 +1,4 @@
 /* eslint-disable no-magic-numbers */
-import { describe, expect, it } from 'vitest';
-import nock from 'nock';
 import { resolve } from 'path';
 import {
   testEnv,
@@ -9,6 +7,8 @@ import {
   getApiFixture,
   getOctokit,
 } from '@technote-space/github-action-test-helper';
+import nock from 'nock';
+import { describe, expect, it } from 'vitest';
 import { getCommitItems } from './commit';
 
 const rootDir        = resolve(__dirname, '../..');
