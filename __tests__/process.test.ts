@@ -1,4 +1,5 @@
 /* eslint-disable no-magic-numbers */
+import { beforeEach, describe, expect, it } from 'vitest';
 import {Context} from '@actions/github/lib/context';
 import nock from 'nock';
 import {resolve} from 'path';
