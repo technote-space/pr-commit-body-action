@@ -1,8 +1,7 @@
 /* eslint-disable no-magic-numbers */
-import {Context} from '@actions/github/lib/context';
-import nock from 'nock';
-import {resolve} from 'path';
-import {Logger} from '@technote-space/github-action-log-helper';
+import { resolve } from 'path';
+import { Context } from '@actions/github/lib/context';
+import { Logger } from '@technote-space/github-action-log-helper';
 import {
   testEnv,
   generateContext,
@@ -12,12 +11,14 @@ import {
   getOctokit,
   stdoutCalledWith,
 } from '@technote-space/github-action-test-helper';
-import {execute} from '../src/process';
+import nock from 'nock';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { execute } from './process';
 
 const rootDir        = resolve(__dirname, '..');
 const fixtureRootDir = resolve(__dirname, 'fixtures');
 const octokit        = getOctokit();
-const context        = (body?: string): Context => generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge'}, {
+const context        = (body?: string): Context => generateContext({ owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge' }, {
   payload: {
     number: 123,
     'pull_request': {

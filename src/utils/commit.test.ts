@@ -1,6 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import nock from 'nock';
-import {resolve} from 'path';
+import { resolve } from 'path';
 import {
   testEnv,
   generateContext,
@@ -8,12 +7,14 @@ import {
   getApiFixture,
   getOctokit,
 } from '@technote-space/github-action-test-helper';
-import {getCommitItems} from '../../src/utils/commit';
+import nock from 'nock';
+import { describe, expect, it } from 'vitest';
+import { getCommitItems } from './commit';
 
 const rootDir        = resolve(__dirname, '../..');
 const fixtureRootDir = resolve(__dirname, '..', 'fixtures');
 const octokit        = getOctokit();
-const context        = generateContext({owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge'}, {
+const context        = generateContext({ owner: 'hello', repo: 'world', ref: 'refs/pull/123/merge' }, {
   payload: {
     number: 123,
     'pull_request': {

@@ -1,4 +1,4 @@
-import {Utils} from '@technote-space/github-action-helper';
+import { Utils } from '@technote-space/github-action-helper';
 
 export const TARGET_EVENTS       = {
   'pull_request': [

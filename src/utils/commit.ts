@@ -1,10 +1,10 @@
-import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {Utils} from '@technote-space/github-action-helper';
-import {Commit} from '@technote-space/github-action-version-helper';
-import {Commit as CommitType} from '@technote-space/github-action-version-helper/dist/types';
-import {getCommitTypes, getMaxCommitNumber, getExcludeMessages, getBreakingChangeNotes} from './misc';
-import {CommitItemInfo} from '../types';
+import type { CommitItemInfo } from '../types';
+import type { Context } from '@actions/github/lib/context';
+import type { Octokit } from '@technote-space/github-action-helper/dist/types';
+import type { Commit as CommitType } from '@technote-space/github-action-version-helper/dist/types';
+import { Utils } from '@technote-space/github-action-helper';
+import { Commit } from '@technote-space/github-action-version-helper';
+import { getCommitTypes, getMaxCommitNumber, getExcludeMessages, getBreakingChangeNotes } from './misc';
 
 export const getCommitItems = async(octokit: Octokit, context: Context): Promise<Array<CommitItemInfo>> => {
   const types     = getCommitTypes();
