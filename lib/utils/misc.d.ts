@@ -1,0 +1,16 @@
+export declare const getCommitTypes: () => Array<string>;
+export declare const getTitle: () => string;
+export declare const getNoItems: () => string;
+export declare const getTemplate: (isEmpty: boolean) => string;
+export declare const getBodyTemplate: (isEmpty: boolean) => string;
+export declare const getMergeTemplate: () => string;
+export declare const getCommitTemplate: () => string;
+export declare const getChildCommitTemplate: () => string;
+export declare const getBreakingChangeTemplate: () => string;
+export declare const getMaxCommitNumber: () => number;
+export declare const getExcludeMessages: () => Array<string>;
+export declare const getBreakingChangeNotes: () => Array<string>;
+export declare const addCloseAnnotation: (message: string, keyword: string) => string;
+export declare const transform: (content: string, template: string) => string;
+export declare const getLinkIssueKeyword: () => string;
+export declare const isFilterPulls: () => boolean;
